@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "kind": "repeated_keys_validation",
+  "frozen_at": "2026-10-20T14:15:23.851Z",
+  "original_plan": {
+    "schema": 1,
+    "kind": "repeated_keys_validation",
+    "protocol": "biblia-1m.json",
+    "seeds": [2026, 2027, 2028, 2029, 2030],
+    "concurrency": 4,
+    "baseline": {
+      "seed": 2026,
+      "dataset": "../runs/biblia-1m",
+      "evaluation": "../runs/avaliacao-1m"
+    },
+    "interpretation": "2026 é exploratória e preexistente. 2027 a 2030 são novas repetições prospectivas, mantendo textos claros e variando chaves e IVs. Sem seleção posterior do melhor resultado."
+  },
+  "original_plan_sha256": "b007d472c2ba9fac01faee6a930ab303b0f629745e1ed22e697d8091fb77a549",
+  "protocol": {
+    "seed": 2026,
+    "algorithms": ["Blowfish", "RC2", "CAST5"],
+    "textBytes": 8192,
+    "referenceKeys": 10,
+    "referencePerKey": 33,
+    "samples": 5,
+    "testsPerAlgorithm": 100,
+    "testStartByte": 163840
+  },
+  "protocol_sha256": "46fd1db636e4dc14718e2b81bd9369fd1b1449036d5228ef5060dfde272c3854",
+  "concurrency": 4,
+  "source_hashes": {
+    "src/classification.js": "09da85b0f9dd5dbb9fc2193094a6c6f356876eb6b8739dfb68fd97994b94b3ae",
+    "src/cli.js": "6d961f2ae782796aa82bff203e6d938b29d67ddfd76136ba63eea70ca5b5f633",
+    "src/crypto.js": "a25154b1b519a8d65129f2260c3107b7be8cb7e6a73267c07b65aeb42b92e2ae",
+    "src/dataset.js": "0c24cb355a566961f29e84f8c809241b0dd66682315f519a2a971b1d8c05b9b7",
+    "src/diagnostics.js": "b667a34b0a592b85927fe7c4fd316d32da6a161d78154fd0c2203c2b2819cf4f",
+    "src/evaluation.js": "5dd4fcfcbcb1b58c56582b980a7d0322b3e91f8a82a3d7d78701b8d027dcce2e",
+    "src/features.js": "5a0a69b518cb167d9c032c62e0abd2322a95446a0fe4aa8f60a99c32c7d5a162",
+    "src/index.js": "d595e4ccdf59fecf5d814aa568d6267481ef48de5da0966c21522f09a1f16cf2",
+    "src/io.js": "45fe7327525bd6c503eeb044481427c3831e6f6ba755f14d0b11ecd28bdcb87e",
+    "src/metrics.js": "eb4305ea72f93baf09ca5752abae71fdfb644fbd2ed84190982c260a67593e9e",
+    "src/pipeline.js": "86ef52edaab00eaee728c051324afcc5a72cb3f600b8d29b47b9d966540cebed",
+    "src/reference.js": "b94a433b2bb6e32293483e677b6d1228f2e55697c94d2a66d3ef1b0147c79f5a",
+    "src/scale.js": "cf9bad0dbd3bb10c5a49b635475acd5df34d74dcc89b89ea7a76aa55b295a852",
+    "src/structural.js": "39fcf1190ccb79480907490fce701c76f8671142ff957b8ab1ca9f70a59507a4",
+    "src/study.js": "fdd33d390097b1102ddc83ac9b240f48bea99ce23f594352da7bf804549932b3",
+    "src/terms.js": "29ad2dffef09a0999f5350abda9ed5e6285e0a86cb23f8620110ce0806fb5ca2"
+  },
+  "environment": {
+    "node": "v24.16.0",
+    "openssl": "3.5.6",
+    "platform": "darwin",
+    "architecture": "arm64"
+  },
+  "reused_exploratory_seed": 2026,
+  "warning": "Repetições criptográficas dos mesmos textos claros: não são mensagens independentes. Agregação descritiva, sem teste de significância, garantia de generalização ou réplica histórica exata."
+}

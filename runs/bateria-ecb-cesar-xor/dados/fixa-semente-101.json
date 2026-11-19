@@ -1,0 +1,1525 @@
+{
+ "log": "fixa-semente-101.txt",
+ "session": "runs/sessoes/2026-11-19T14-25-04-965Z-semente-101",
+ "config": {
+  "seed": 101,
+  "testStartByte": 2457600,
+  "sizes": {
+   "textBytes": 8192,
+   "referenceKeys": 10,
+   "referencePerKey": 20,
+   "samples": 5,
+   "testsPerAlgorithm": 40
+  },
+  "crypto": {
+   "backend": {
+    "kind": "node"
+   },
+   "mode": "ECB",
+   "ciphers": [
+    {
+     "label": "Blowfish",
+     "source": "openssl",
+     "base": "bf",
+     "keys": {
+      "policy": "fixa",
+      "hex": "d0e98a5cb4dfd8302245115467f83dd0"
+     },
+     "iv": {
+      "policy": "nenhum"
+     }
+    },
+    {
+     "label": "RC2",
+     "source": "openssl",
+     "base": "rc2",
+     "keys": {
+      "policy": "fixa",
+      "hex": "8ea30cc50466cee860050e4c927d8d91"
+     },
+     "iv": {
+      "policy": "nenhum"
+     }
+    },
+    {
+     "label": "CAST5",
+     "source": "openssl",
+     "base": "cast5",
+     "keys": {
+      "policy": "fixa",
+      "hex": "0022eb0f09ebde75b3667443a3935018"
+     },
+     "iv": {
+      "policy": "nenhum"
+     }
+    },
+    {
+     "label": "XOR",
+     "source": "programa",
+     "command": "python3 exemplos/cifra-xor.py",
+     "keyBytes": 16,
+     "ivBytes": 0,
+     "keys": {
+      "policy": "fixa",
+      "hex": "e9cec5204800b4c21d4f70bab53a5b99"
+     },
+     "iv": {
+      "policy": "nenhum"
+     }
+    },
+    {
+     "label": "Cesar",
+     "source": "programa",
+     "command": "python3 exemplos/cifra-cesar.py",
+     "keyBytes": 1,
+     "ivBytes": 0,
+     "keys": {
+      "policy": "fixa",
+      "hex": "6c"
+     },
+     "iv": {
+      "policy": "nenhum"
+     }
+    }
+   ]
+  },
+  "settings": {
+   "candidates": [
+    "Blowfish",
+    "RC2",
+    "CAST5",
+    "XOR",
+    "Cesar"
+   ],
+   "decisionType": 3,
+   "candidate": "Blowfish",
+   "alpha": 0.1,
+   "profile": "chapter3",
+   "zeroWeight": "perde"
+  },
+  "cases": 200
+ },
+ "links": 99468,
+ "groups": 5,
+ "isolated": 0,
+ "time": "24 min 45 s",
+ "composition": {
+  "delta_1": {
+   "Blowfish": 200
+  },
+  "delta_2": {
+   "RC2": 200
+  },
+  "delta_3": {
+   "CAST5": 200
+  },
+  "delta_4": {
+   "XOR": 200
+  },
+  "delta_5": {
+   "Cesar": 200
+  }
+ },
+ "cases": [
+  {
+   "file": "base/test/Blowfish/k0-f0000.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0000.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0000.bin",
+   "actual": "CAST5",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0000.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0000.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0001.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0001.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0001.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0001.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0001.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0002.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0002.bin",
+   "actual": "RC2",
+   "prediction": "CAST5",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0002.bin",
+   "actual": "CAST5",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0002.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0002.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0003.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0003.bin",
+   "actual": "RC2",
+   "prediction": "Cesar",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0003.bin",
+   "actual": "CAST5",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0003.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0003.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0004.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0004.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0004.bin",
+   "actual": "CAST5",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0004.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0004.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0005.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0005.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0005.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0005.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0005.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0006.bin",
+   "actual": "Blowfish",
+   "prediction": "CAST5",
+   "correct": false,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0006.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0006.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0006.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0006.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0007.bin",
+   "actual": "Blowfish",
+   "prediction": "Cesar",
+   "correct": false,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0007.bin",
+   "actual": "RC2",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0007.bin",
+   "actual": "CAST5",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0007.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0007.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0008.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0008.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0008.bin",
+   "actual": "CAST5",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0008.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0008.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0009.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0009.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0009.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0009.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0009.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0010.bin",
+   "actual": "Blowfish",
+   "prediction": "CAST5",
+   "correct": false,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0010.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0010.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0010.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0010.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0011.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0011.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0011.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0011.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0011.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0012.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0012.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0012.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0012.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0012.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0013.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0013.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0013.bin",
+   "actual": "CAST5",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0013.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0013.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0014.bin",
+   "actual": "Blowfish",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0014.bin",
+   "actual": "RC2",
+   "prediction": "CAST5",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0014.bin",
+   "actual": "CAST5",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0014.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0014.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0015.bin",
+   "actual": "Blowfish",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0015.bin",
+   "actual": "RC2",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0015.bin",
+   "actual": "CAST5",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0015.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0015.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0016.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0016.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0016.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0016.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0016.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0017.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0017.bin",
+   "actual": "RC2",
+   "prediction": "CAST5",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0017.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0017.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0017.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0018.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0018.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0018.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0018.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0018.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0019.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0019.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0019.bin",
+   "actual": "CAST5",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0019.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0019.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0020.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0020.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0020.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0020.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0020.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0021.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0021.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0021.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0021.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0021.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0022.bin",
+   "actual": "Blowfish",
+   "prediction": "CAST5",
+   "correct": false,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0022.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0022.bin",
+   "actual": "CAST5",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0022.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0022.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0023.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0023.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0023.bin",
+   "actual": "CAST5",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0023.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0023.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0024.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0024.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0024.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0024.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0024.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0025.bin",
+   "actual": "Blowfish",
+   "prediction": "CAST5",
+   "correct": false,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0025.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0025.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0025.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0025.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0026.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0026.bin",
+   "actual": "RC2",
+   "prediction": "CAST5",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0026.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0026.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0026.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0027.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0027.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0027.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0027.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0027.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0028.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0028.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0028.bin",
+   "actual": "CAST5",
+   "prediction": "Cesar",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0028.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0028.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0029.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0029.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0029.bin",
+   "actual": "CAST5",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0029.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0029.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0030.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0030.bin",
+   "actual": "RC2",
+   "prediction": "CAST5",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0030.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0030.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0030.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0031.bin",
+   "actual": "Blowfish",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0031.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0031.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0031.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0031.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0032.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0032.bin",
+   "actual": "RC2",
+   "prediction": "XOR",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0032.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0032.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0032.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0033.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0033.bin",
+   "actual": "RC2",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0033.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0033.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0033.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0034.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0034.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0034.bin",
+   "actual": "CAST5",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0034.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0034.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0035.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0035.bin",
+   "actual": "RC2",
+   "prediction": "Blowfish",
+   "correct": false,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0035.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0035.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0035.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0036.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0036.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0036.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0036.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0036.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0037.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0037.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0037.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0037.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0037.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0038.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0038.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0038.bin",
+   "actual": "CAST5",
+   "prediction": "RC2",
+   "correct": false,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0038.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0038.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  },
+  {
+   "file": "base/test/Blowfish/k0-f0039.bin",
+   "actual": "Blowfish",
+   "prediction": "Blowfish",
+   "correct": true,
+   "group": "delta_1"
+  },
+  {
+   "file": "base/test/RC2/k0-f0039.bin",
+   "actual": "RC2",
+   "prediction": "RC2",
+   "correct": true,
+   "group": "delta_2"
+  },
+  {
+   "file": "base/test/CAST5/k0-f0039.bin",
+   "actual": "CAST5",
+   "prediction": "CAST5",
+   "correct": true,
+   "group": "delta_3"
+  },
+  {
+   "file": "base/test/XOR/k0-f0039.bin",
+   "actual": "XOR",
+   "prediction": "XOR",
+   "correct": true,
+   "group": "delta_4"
+  },
+  {
+   "file": "base/test/Cesar/k0-f0039.bin",
+   "actual": "Cesar",
+   "prediction": "Cesar",
+   "correct": true,
+   "group": "delta_5"
+  }
+ ]
+}

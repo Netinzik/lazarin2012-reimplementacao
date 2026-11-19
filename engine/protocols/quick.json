@@ -1,0 +1,9 @@
+{
+  "seed": 2026,
+  "algorithms": ["Blowfish", "RC2", "CAST5"],
+  "textBytes": 512,
+  "referenceKeys": 10,
+  "referencePerKey": 2,
+  "samples": 5,
+  "testsPerAlgorithm": 5
+}

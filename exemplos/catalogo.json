@@ -1,0 +1,80 @@
+[
+  {
+    "nome": "XOR",
+    "arquivo": "cifra-xor.py",
+    "chaveBytes": 16,
+    "ivBytes": 0,
+    "familia": "clássica",
+    "descricao": "XOR com a chave repetida"
+  },
+  {
+    "nome": "Cesar",
+    "arquivo": "cifra-cesar.py",
+    "chaveBytes": 1,
+    "ivBytes": 0,
+    "familia": "clássica",
+    "descricao": "César: deslocamento fixo de cada byte"
+  },
+  {
+    "nome": "Vigenere",
+    "arquivo": "cifra-vigenere.py",
+    "chaveBytes": 16,
+    "ivBytes": 0,
+    "familia": "clássica",
+    "descricao": "Vigenère: um deslocamento por posição, período = chave"
+  },
+  {
+    "nome": "Afim",
+    "arquivo": "cifra-afim.py",
+    "chaveBytes": 2,
+    "ivBytes": 0,
+    "familia": "clássica",
+    "descricao": "afim: c = a·p + b (mod 256)"
+  },
+  {
+    "nome": "Substituicao",
+    "arquivo": "cifra-substituicao.py",
+    "chaveBytes": 16,
+    "ivBytes": 0,
+    "familia": "clássica",
+    "descricao": "substituição monoalfabética dos 256 bytes"
+  },
+  {
+    "nome": "Transposicao",
+    "arquivo": "transposicao.mjs",
+    "familia": "clássica",
+    "descricao": "transposição: reordena os 8 bytes de cada bloco"
+  },
+  {
+    "nome": "Hill",
+    "arquivo": "hill.mjs",
+    "familia": "clássica",
+    "descricao": "Hill: matriz 8×8 invertível mod 256 (linear)"
+  },
+  {
+    "nome": "RC4",
+    "arquivo": "cifra-rc4.py",
+    "chaveBytes": 16,
+    "ivBytes": 0,
+    "familia": "moderna",
+    "descricao": "RC4 (Rivest, 1987): cifra de fluxo, quebrada"
+  },
+  {
+    "nome": "TEA",
+    "arquivo": "tea.mjs",
+    "familia": "moderna",
+    "descricao": "TEA (Wheeler e Needham, 1994): Feistel de 64 rodadas"
+  },
+  {
+    "nome": "RC5",
+    "arquivo": "rc5.mjs",
+    "familia": "moderna",
+    "descricao": "RC5-32/12/16 (Rivest, 1994): rotações dependentes dos dados"
+  },
+  {
+    "nome": "Feistel",
+    "arquivo": "feistel-fraca.mjs",
+    "familia": "didática",
+    "descricao": "Feistel de 2 rodadas: modelo para escrever a sua"
+  }
+]

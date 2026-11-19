@@ -1,0 +1,62 @@
+{
+  "seed": 202,
+  "testStartByte": 819200,
+  "sizes": {
+    "textBytes": 8192,
+    "referenceKeys": 10,
+    "referencePerKey": 20,
+    "samples": 5,
+    "testsPerAlgorithm": 40
+  },
+  "crypto": {
+    "backend": {
+      "kind": "node"
+    },
+    "mode": "ECB",
+    "ciphers": [
+      {
+        "label": "Blowfish",
+        "source": "openssl",
+        "base": "bf"
+      },
+      {
+        "label": "RC2",
+        "source": "openssl",
+        "base": "rc2"
+      },
+      {
+        "label": "CAST5",
+        "source": "openssl",
+        "base": "cast5"
+      },
+      {
+        "label": "XOR",
+        "source": "programa",
+        "command": "python3 exemplos/cifra-xor.py",
+        "keyBytes": 16,
+        "ivBytes": 0
+      },
+      {
+        "label": "Cesar",
+        "source": "programa",
+        "command": "python3 exemplos/cifra-cesar.py",
+        "keyBytes": 1,
+        "ivBytes": 0
+      }
+    ]
+  },
+  "settings": {
+    "candidates": [
+      "Blowfish",
+      "RC2",
+      "CAST5",
+      "XOR",
+      "Cesar"
+    ],
+    "decisionType": 3,
+    "candidate": "Blowfish",
+    "alpha": 0.1,
+    "profile": "chapter3",
+    "zeroWeight": "perde"
+  }
+}

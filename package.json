@@ -1,0 +1,18 @@
+{
+  "name": "lazarin2012-reimplementacao",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "description": "Reimplementação do método de Lazarin (2012) para classificação de criptogramas: cifras, modos, chaves, IVs e motor configuráveis no terminal, com suporte a cifra própria e 11 cifras de exemplo",
+  "scripts": {
+    "classificar": "node --openssl-legacy-provider interface/cli.mjs classificar",
+    "exemplo": "node engine/src/cli.js index-example",
+    "grupos": "node --openssl-legacy-provider interface/cli.mjs grupos",
+    "resultados": "node --openssl-legacy-provider interface/cli.mjs resultados",
+    "ambiente": "node --openssl-legacy-provider interface/cli.mjs ambiente",
+    "test": "node --openssl-legacy-provider --test interface/test/*.test.mjs engine/test/*.test.js"
+  }
+}

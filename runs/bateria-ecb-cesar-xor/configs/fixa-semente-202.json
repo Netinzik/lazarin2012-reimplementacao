@@ -1,0 +1,82 @@
+{
+  "seed": 202,
+  "testStartByte": 819200,
+  "sizes": {
+    "textBytes": 8192,
+    "referenceKeys": 10,
+    "referencePerKey": 20,
+    "samples": 5,
+    "testsPerAlgorithm": 40
+  },
+  "crypto": {
+    "backend": {
+      "kind": "node"
+    },
+    "mode": "ECB",
+    "ciphers": [
+      {
+        "label": "Blowfish",
+        "source": "openssl",
+        "base": "bf",
+        "keys": {
+          "policy": "fixa",
+          "hex": "3f4a03df163cdfe6588b7cf642c6374c"
+        }
+      },
+      {
+        "label": "RC2",
+        "source": "openssl",
+        "base": "rc2",
+        "keys": {
+          "policy": "fixa",
+          "hex": "10ae1e01fb425675bb340c74fde98c97"
+        }
+      },
+      {
+        "label": "CAST5",
+        "source": "openssl",
+        "base": "cast5",
+        "keys": {
+          "policy": "fixa",
+          "hex": "16d1f3d1b154748797b8d9069f9d43f2"
+        }
+      },
+      {
+        "label": "XOR",
+        "source": "programa",
+        "command": "python3 exemplos/cifra-xor.py",
+        "keyBytes": 16,
+        "ivBytes": 0,
+        "keys": {
+          "policy": "fixa",
+          "hex": "2aab42467bf57f17109815a02d510d21"
+        }
+      },
+      {
+        "label": "Cesar",
+        "source": "programa",
+        "command": "python3 exemplos/cifra-cesar.py",
+        "keyBytes": 1,
+        "ivBytes": 0,
+        "keys": {
+          "policy": "fixa",
+          "hex": "3b"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "candidates": [
+      "Blowfish",
+      "RC2",
+      "CAST5",
+      "XOR",
+      "Cesar"
+    ],
+    "decisionType": 3,
+    "candidate": "Blowfish",
+    "alpha": 0.1,
+    "profile": "chapter3",
+    "zeroWeight": "perde"
+  }
+}

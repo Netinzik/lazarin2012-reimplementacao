@@ -1,0 +1,1520 @@
+{
+  "schema": 1,
+  "kind": "repeated_keys_validation_results",
+  "artifact_version": "0.6.0",
+  "cells": [
+    {
+      "seed": 2026,
+      "role": "exploratory_reused",
+      "dataset_path": "../biblia-1m",
+      "evaluation_path": "../avaliacao-1m",
+      "result": {
+        "schema": 2,
+        "kind": "controlled_bible_evaluation",
+        "artifact_version": "0.5.0",
+        "dataset": {
+          "source_sha256": "bf9c6053bfb441d117a2a128d4edec9fbe935f415bc8f7bf4e1f3f9121790215",
+          "manifest_sha256": "d46341071f1d8e0ade4592cecb715261141b472880c37e5c1e902e2ffa725af1",
+          "text_bytes": 8192,
+          "seed": 2026,
+          "reference_files": 990
+        },
+        "configuration": {
+          "candidates": ["Blowfish", "RC2", "CAST5"],
+          "decision_type": 3,
+          "profile": "chapter3",
+          "alpha": 0.1,
+          "estimated_hamming_comparisons": 311427072000,
+          "automatic_decision_type": 3,
+          "automatic_profile": "chapter3"
+        },
+        "reference_terms": {
+          "files": 990,
+          "occurrences": 1013760,
+          "distinct": 1013760,
+          "per_algorithm": {
+            "Blowfish": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "RC2": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "CAST5": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            }
+          }
+        },
+        "prepared": {
+          "total": 300,
+          "correct": 108,
+          "errors": 192,
+          "classified": 300,
+          "abstained": 0,
+          "accuracy": 0.36,
+          "coverage": 1,
+          "accuracy_when_classified": 0.36,
+          "abstention_reasons": {},
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 39,
+              "RC2": 33,
+              "CAST5": 28,
+              "SEM_CLASSE": 0
+            },
+            "RC2": {
+              "Blowfish": 31,
+              "RC2": 37,
+              "CAST5": 32,
+              "SEM_CLASSE": 0
+            },
+            "CAST5": {
+              "Blowfish": 33,
+              "RC2": 35,
+              "CAST5": 32,
+              "SEM_CLASSE": 0
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 39,
+              "actual": 100,
+              "predicted": 103,
+              "precision": 0.3786407766990291,
+              "recall": 0.39
+            },
+            "RC2": {
+              "true_positive": 37,
+              "actual": 100,
+              "predicted": 105,
+              "precision": 0.3523809523809524,
+              "recall": 0.37
+            },
+            "CAST5": {
+              "true_positive": 32,
+              "actual": 100,
+              "predicted": 92,
+              "precision": 0.34782608695652173,
+              "recall": 0.32
+            }
+          }
+        },
+        "structural": {
+          "total": 300,
+          "correct": 0,
+          "errors": 0,
+          "classified": 0,
+          "abstained": 300,
+          "accuracy": 0,
+          "coverage": 0,
+          "accuracy_when_classified": null,
+          "abstention_reasons": {
+            "insufficient_reference_structure": 300
+          },
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "RC2": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "CAST5": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "RC2": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "CAST5": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            }
+          }
+        },
+        "structure": {
+          "edge_count": 0,
+          "ungrouped_count": 990,
+          "groups": []
+        },
+        "execution": {
+          "elapsed_ms": 648008.1704160001,
+          "max_rss_bytes": 762986496,
+          "phases_ms": {
+            "validate_dataset": 182.842375,
+            "load_reference": 995.7934579999999,
+            "structural_fit": 737.929333,
+            "count_reference_terms": 19.089709000000084,
+            "prepared_prediction": 645983.5076260002,
+            "structural_prediction": 0.4396569997866209
+          },
+          "node": "v24.16.0",
+          "openssl": "3.5.6",
+          "platform": "darwin",
+          "architecture": "arm64"
+        },
+        "interpretation": "Estudo controlado com chaves iguais; não é réplica exata de 2012. Índice não é probabilidade."
+      }
+    },
+    {
+      "seed": 2027,
+      "role": "prospective",
+      "dataset_path": "seed-2027/dataset",
+      "evaluation_path": "seed-2027/evaluation",
+      "result": {
+        "schema": 2,
+        "kind": "controlled_bible_evaluation",
+        "artifact_version": "0.6.0",
+        "dataset": {
+          "source_sha256": "bf9c6053bfb441d117a2a128d4edec9fbe935f415bc8f7bf4e1f3f9121790215",
+          "manifest_sha256": "d8932b3c0ed9d257b5c1612e1104c4702e2d32b0355ca7756652ad1cca614f0e",
+          "text_bytes": 8192,
+          "seed": 2027,
+          "reference_files": 990
+        },
+        "configuration": {
+          "candidates": ["Blowfish", "RC2", "CAST5"],
+          "decision_type": 3,
+          "profile": "chapter3",
+          "alpha": 0.1,
+          "estimated_hamming_comparisons": 311427072000,
+          "automatic_decision_type": 3,
+          "automatic_profile": "chapter3"
+        },
+        "reference_terms": {
+          "files": 990,
+          "occurrences": 1013760,
+          "distinct": 1013760,
+          "per_algorithm": {
+            "Blowfish": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "RC2": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "CAST5": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            }
+          }
+        },
+        "prepared": {
+          "total": 300,
+          "correct": 95,
+          "errors": 205,
+          "classified": 300,
+          "abstained": 0,
+          "accuracy": 0.31666666666666665,
+          "coverage": 1,
+          "accuracy_when_classified": 0.31666666666666665,
+          "abstention_reasons": {},
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 31,
+              "RC2": 38,
+              "CAST5": 31,
+              "SEM_CLASSE": 0
+            },
+            "RC2": {
+              "Blowfish": 29,
+              "RC2": 33,
+              "CAST5": 38,
+              "SEM_CLASSE": 0
+            },
+            "CAST5": {
+              "Blowfish": 32,
+              "RC2": 37,
+              "CAST5": 31,
+              "SEM_CLASSE": 0
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 31,
+              "actual": 100,
+              "predicted": 92,
+              "precision": 0.33695652173913043,
+              "recall": 0.31
+            },
+            "RC2": {
+              "true_positive": 33,
+              "actual": 100,
+              "predicted": 108,
+              "precision": 0.3055555555555556,
+              "recall": 0.33
+            },
+            "CAST5": {
+              "true_positive": 31,
+              "actual": 100,
+              "predicted": 100,
+              "precision": 0.31,
+              "recall": 0.31
+            }
+          }
+        },
+        "structural": {
+          "total": 300,
+          "correct": 0,
+          "errors": 0,
+          "classified": 0,
+          "abstained": 300,
+          "accuracy": 0,
+          "coverage": 0,
+          "accuracy_when_classified": null,
+          "abstention_reasons": {
+            "insufficient_reference_structure": 300
+          },
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "RC2": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "CAST5": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "RC2": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "CAST5": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            }
+          }
+        },
+        "structure": {
+          "edge_count": 0,
+          "ungrouped_count": 990,
+          "groups": []
+        },
+        "execution": {
+          "elapsed_ms": 917285.793916,
+          "max_rss_bytes": 2969763840,
+          "phases_ms": {
+            "validate_dataset": 258.034,
+            "load_reference": 1522.3755410000003,
+            "structural_fit": 856.6033339999999,
+            "count_reference_terms": 26.20479099999966,
+            "prepared_prediction": 914381.2275770003,
+            "structural_prediction": 0.5342210010949202
+          },
+          "node": "v24.16.0",
+          "openssl": "3.5.6",
+          "platform": "darwin",
+          "architecture": "arm64"
+        },
+        "interpretation": "Estudo controlado com chaves iguais; não é réplica exata de 2012. Índice não é probabilidade."
+      }
+    },
+    {
+      "seed": 2028,
+      "role": "prospective",
+      "dataset_path": "seed-2028/dataset",
+      "evaluation_path": "seed-2028/evaluation",
+      "result": {
+        "schema": 2,
+        "kind": "controlled_bible_evaluation",
+        "artifact_version": "0.6.0",
+        "dataset": {
+          "source_sha256": "bf9c6053bfb441d117a2a128d4edec9fbe935f415bc8f7bf4e1f3f9121790215",
+          "manifest_sha256": "3533b2655eb15e71dd0f88b68f23a5458d23da94dcca32f1cfe89eef7d4fb201",
+          "text_bytes": 8192,
+          "seed": 2028,
+          "reference_files": 990
+        },
+        "configuration": {
+          "candidates": ["Blowfish", "RC2", "CAST5"],
+          "decision_type": 3,
+          "profile": "chapter3",
+          "alpha": 0.1,
+          "estimated_hamming_comparisons": 311427072000,
+          "automatic_decision_type": 3,
+          "automatic_profile": "chapter3"
+        },
+        "reference_terms": {
+          "files": 990,
+          "occurrences": 1013760,
+          "distinct": 1013760,
+          "per_algorithm": {
+            "Blowfish": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "RC2": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "CAST5": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            }
+          }
+        },
+        "prepared": {
+          "total": 300,
+          "correct": 90,
+          "errors": 210,
+          "classified": 300,
+          "abstained": 0,
+          "accuracy": 0.3,
+          "coverage": 1,
+          "accuracy_when_classified": 0.3,
+          "abstention_reasons": {},
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 25,
+              "RC2": 33,
+              "CAST5": 42,
+              "SEM_CLASSE": 0
+            },
+            "RC2": {
+              "Blowfish": 36,
+              "RC2": 39,
+              "CAST5": 25,
+              "SEM_CLASSE": 0
+            },
+            "CAST5": {
+              "Blowfish": 32,
+              "RC2": 42,
+              "CAST5": 26,
+              "SEM_CLASSE": 0
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 25,
+              "actual": 100,
+              "predicted": 93,
+              "precision": 0.26881720430107525,
+              "recall": 0.25
+            },
+            "RC2": {
+              "true_positive": 39,
+              "actual": 100,
+              "predicted": 114,
+              "precision": 0.34210526315789475,
+              "recall": 0.39
+            },
+            "CAST5": {
+              "true_positive": 26,
+              "actual": 100,
+              "predicted": 93,
+              "precision": 0.27956989247311825,
+              "recall": 0.26
+            }
+          }
+        },
+        "structural": {
+          "total": 300,
+          "correct": 0,
+          "errors": 0,
+          "classified": 0,
+          "abstained": 300,
+          "accuracy": 0,
+          "coverage": 0,
+          "accuracy_when_classified": null,
+          "abstention_reasons": {
+            "insufficient_reference_structure": 300
+          },
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "RC2": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "CAST5": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "RC2": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "CAST5": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            }
+          }
+        },
+        "structure": {
+          "edge_count": 0,
+          "ungrouped_count": 990,
+          "groups": []
+        },
+        "execution": {
+          "elapsed_ms": 916385.019584,
+          "max_rss_bytes": 2969763840,
+          "phases_ms": {
+            "validate_dataset": 258.40374999999995,
+            "load_reference": 1517.7778340000002,
+            "structural_fit": 954.8141249999999,
+            "count_reference_terms": 22.904415999999856,
+            "prepared_prediction": 913405.3891309995,
+            "structural_prediction": 1.2948320007735674
+          },
+          "node": "v24.16.0",
+          "openssl": "3.5.6",
+          "platform": "darwin",
+          "architecture": "arm64"
+        },
+        "interpretation": "Estudo controlado com chaves iguais; não é réplica exata de 2012. Índice não é probabilidade."
+      }
+    },
+    {
+      "seed": 2029,
+      "role": "prospective",
+      "dataset_path": "seed-2029/dataset",
+      "evaluation_path": "seed-2029/evaluation",
+      "result": {
+        "schema": 2,
+        "kind": "controlled_bible_evaluation",
+        "artifact_version": "0.6.0",
+        "dataset": {
+          "source_sha256": "bf9c6053bfb441d117a2a128d4edec9fbe935f415bc8f7bf4e1f3f9121790215",
+          "manifest_sha256": "da4733561350faf18db8ceacc0225f0b4e0f136b951e17d3219f246416943df1",
+          "text_bytes": 8192,
+          "seed": 2029,
+          "reference_files": 990
+        },
+        "configuration": {
+          "candidates": ["Blowfish", "RC2", "CAST5"],
+          "decision_type": 3,
+          "profile": "chapter3",
+          "alpha": 0.1,
+          "estimated_hamming_comparisons": 311427072000,
+          "automatic_decision_type": 3,
+          "automatic_profile": "chapter3"
+        },
+        "reference_terms": {
+          "files": 990,
+          "occurrences": 1013760,
+          "distinct": 1013760,
+          "per_algorithm": {
+            "Blowfish": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "RC2": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "CAST5": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            }
+          }
+        },
+        "prepared": {
+          "total": 300,
+          "correct": 101,
+          "errors": 199,
+          "classified": 300,
+          "abstained": 0,
+          "accuracy": 0.33666666666666667,
+          "coverage": 1,
+          "accuracy_when_classified": 0.33666666666666667,
+          "abstention_reasons": {},
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 34,
+              "RC2": 30,
+              "CAST5": 36,
+              "SEM_CLASSE": 0
+            },
+            "RC2": {
+              "Blowfish": 35,
+              "RC2": 29,
+              "CAST5": 36,
+              "SEM_CLASSE": 0
+            },
+            "CAST5": {
+              "Blowfish": 30,
+              "RC2": 32,
+              "CAST5": 38,
+              "SEM_CLASSE": 0
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 34,
+              "actual": 100,
+              "predicted": 99,
+              "precision": 0.3434343434343434,
+              "recall": 0.34
+            },
+            "RC2": {
+              "true_positive": 29,
+              "actual": 100,
+              "predicted": 91,
+              "precision": 0.31868131868131866,
+              "recall": 0.29
+            },
+            "CAST5": {
+              "true_positive": 38,
+              "actual": 100,
+              "predicted": 110,
+              "precision": 0.34545454545454546,
+              "recall": 0.38
+            }
+          }
+        },
+        "structural": {
+          "total": 300,
+          "correct": 0,
+          "errors": 0,
+          "classified": 0,
+          "abstained": 300,
+          "accuracy": 0,
+          "coverage": 0,
+          "accuracy_when_classified": null,
+          "abstention_reasons": {
+            "insufficient_reference_structure": 300
+          },
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "RC2": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "CAST5": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "RC2": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "CAST5": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            }
+          }
+        },
+        "structure": {
+          "edge_count": 0,
+          "ungrouped_count": 990,
+          "groups": []
+        },
+        "execution": {
+          "elapsed_ms": 918002.332,
+          "max_rss_bytes": 2969763840,
+          "phases_ms": {
+            "validate_dataset": 258.63325,
+            "load_reference": 1532.107333,
+            "structural_fit": 1105.98025,
+            "count_reference_terms": 23.768916999999874,
+            "prepared_prediction": 914877.8782490001,
+            "structural_prediction": 0.46479400010321115
+          },
+          "node": "v24.16.0",
+          "openssl": "3.5.6",
+          "platform": "darwin",
+          "architecture": "arm64"
+        },
+        "interpretation": "Estudo controlado com chaves iguais; não é réplica exata de 2012. Índice não é probabilidade."
+      }
+    },
+    {
+      "seed": 2030,
+      "role": "prospective",
+      "dataset_path": "seed-2030/dataset",
+      "evaluation_path": "seed-2030/evaluation",
+      "result": {
+        "schema": 2,
+        "kind": "controlled_bible_evaluation",
+        "artifact_version": "0.6.0",
+        "dataset": {
+          "source_sha256": "bf9c6053bfb441d117a2a128d4edec9fbe935f415bc8f7bf4e1f3f9121790215",
+          "manifest_sha256": "58848c01a66217a4c689a5dca758c126286a16b2ed7818ad7e304a995988e406",
+          "text_bytes": 8192,
+          "seed": 2030,
+          "reference_files": 990
+        },
+        "configuration": {
+          "candidates": ["Blowfish", "RC2", "CAST5"],
+          "decision_type": 3,
+          "profile": "chapter3",
+          "alpha": 0.1,
+          "estimated_hamming_comparisons": 311427072000,
+          "automatic_decision_type": 3,
+          "automatic_profile": "chapter3"
+        },
+        "reference_terms": {
+          "files": 990,
+          "occurrences": 1013760,
+          "distinct": 1013760,
+          "per_algorithm": {
+            "Blowfish": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "RC2": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            },
+            "CAST5": {
+              "files": 330,
+              "occurrences": 337920,
+              "distinct": 337920,
+              "samples": [
+                {
+                  "sample_index": 0,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 1,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 2,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 3,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                },
+                {
+                  "sample_index": 4,
+                  "files": 66,
+                  "occurrences": 67584,
+                  "distinct": 67584
+                }
+              ]
+            }
+          }
+        },
+        "prepared": {
+          "total": 300,
+          "correct": 92,
+          "errors": 208,
+          "classified": 300,
+          "abstained": 0,
+          "accuracy": 0.30666666666666664,
+          "coverage": 1,
+          "accuracy_when_classified": 0.30666666666666664,
+          "abstention_reasons": {},
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 29,
+              "RC2": 36,
+              "CAST5": 35,
+              "SEM_CLASSE": 0
+            },
+            "RC2": {
+              "Blowfish": 31,
+              "RC2": 32,
+              "CAST5": 37,
+              "SEM_CLASSE": 0
+            },
+            "CAST5": {
+              "Blowfish": 33,
+              "RC2": 36,
+              "CAST5": 31,
+              "SEM_CLASSE": 0
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 29,
+              "actual": 100,
+              "predicted": 93,
+              "precision": 0.3118279569892473,
+              "recall": 0.29
+            },
+            "RC2": {
+              "true_positive": 32,
+              "actual": 100,
+              "predicted": 104,
+              "precision": 0.3076923076923077,
+              "recall": 0.32
+            },
+            "CAST5": {
+              "true_positive": 31,
+              "actual": 100,
+              "predicted": 103,
+              "precision": 0.30097087378640774,
+              "recall": 0.31
+            }
+          }
+        },
+        "structural": {
+          "total": 300,
+          "correct": 0,
+          "errors": 0,
+          "classified": 0,
+          "abstained": 300,
+          "accuracy": 0,
+          "coverage": 0,
+          "accuracy_when_classified": null,
+          "abstention_reasons": {
+            "insufficient_reference_structure": 300
+          },
+          "confusion_matrix": {
+            "Blowfish": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "RC2": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            },
+            "CAST5": {
+              "Blowfish": 0,
+              "RC2": 0,
+              "CAST5": 0,
+              "SEM_CLASSE": 100
+            }
+          },
+          "per_class": {
+            "Blowfish": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "RC2": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            },
+            "CAST5": {
+              "true_positive": 0,
+              "actual": 100,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0
+            }
+          }
+        },
+        "structure": {
+          "edge_count": 0,
+          "ungrouped_count": 990,
+          "groups": []
+        },
+        "execution": {
+          "elapsed_ms": 924376.9239159999,
+          "max_rss_bytes": 2969763840,
+          "phases_ms": {
+            "validate_dataset": 257.834166,
+            "load_reference": 1552.7828749999999,
+            "structural_fit": 871.1056670000003,
+            "count_reference_terms": 27.175624999999854,
+            "prepared_prediction": 921438.6159969993,
+            "structural_prediction": 0.5387910001581986
+          },
+          "node": "v24.16.0",
+          "openssl": "3.5.6",
+          "platform": "darwin",
+          "architecture": "arm64"
+        },
+        "interpretation": "Estudo controlado com chaves iguais; não é réplica exata de 2012. Índice não é probabilidade."
+      }
+    }
+  ],
+  "summary": {
+    "seeds": [2026, 2027, 2028, 2029, 2030],
+    "all_repetitions": {
+      "prepared_accuracy": {
+        "n": 5,
+        "mean": 0.32399999999999995,
+        "sample_standard_deviation": 0.02442676128074835,
+        "minimum": 0.3,
+        "maximum": 0.36
+      },
+      "prepared_coverage": {
+        "n": 5,
+        "mean": 1,
+        "sample_standard_deviation": 0,
+        "minimum": 1,
+        "maximum": 1
+      },
+      "structural_accuracy": {
+        "n": 5,
+        "mean": 0,
+        "sample_standard_deviation": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "structural_coverage": {
+        "n": 5,
+        "mean": 0,
+        "sample_standard_deviation": 0,
+        "minimum": 0,
+        "maximum": 0
+      }
+    },
+    "prospective_repetitions": {
+      "prepared_accuracy": {
+        "n": 4,
+        "mean": 0.315,
+        "sample_standard_deviation": 0.015986105077709072,
+        "minimum": 0.3,
+        "maximum": 0.33666666666666667
+      },
+      "prepared_coverage": {
+        "n": 4,
+        "mean": 1,
+        "sample_standard_deviation": 0,
+        "minimum": 1,
+        "maximum": 1
+      },
+      "structural_accuracy": {
+        "n": 4,
+        "mean": 0,
+        "sample_standard_deviation": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "structural_coverage": {
+        "n": 4,
+        "mean": 0,
+        "sample_standard_deviation": 0,
+        "minimum": 0,
+        "maximum": 0
+      }
+    },
+    "prepared_pooled_descriptive": {
+      "total": 1500,
+      "correct": 486,
+      "classified": 1500,
+      "abstained": 0,
+      "accuracy": 0.324,
+      "coverage": 1,
+      "accuracy_when_classified": 0.324,
+      "confusion_matrix": {
+        "Blowfish": {
+          "Blowfish": 158,
+          "RC2": 170,
+          "CAST5": 172,
+          "SEM_CLASSE": 0
+        },
+        "RC2": {
+          "Blowfish": 162,
+          "RC2": 170,
+          "CAST5": 168,
+          "SEM_CLASSE": 0
+        },
+        "CAST5": {
+          "Blowfish": 160,
+          "RC2": 182,
+          "CAST5": 158,
+          "SEM_CLASSE": 0
+        }
+      },
+      "warning": "Totais agrupados apenas descritivos; as mensagens claras se repetem entre sementes."
+    },
+    "structural_pooled_descriptive": {
+      "total": 1500,
+      "correct": 0,
+      "classified": 0,
+      "abstained": 1500,
+      "accuracy": 0,
+      "coverage": 0,
+      "accuracy_when_classified": null,
+      "confusion_matrix": {
+        "Blowfish": {
+          "Blowfish": 0,
+          "RC2": 0,
+          "CAST5": 0,
+          "SEM_CLASSE": 500
+        },
+        "RC2": {
+          "Blowfish": 0,
+          "RC2": 0,
+          "CAST5": 0,
+          "SEM_CLASSE": 500
+        },
+        "CAST5": {
+          "Blowfish": 0,
+          "RC2": 0,
+          "CAST5": 0,
+          "SEM_CLASSE": 500
+        }
+      },
+      "warning": "Totais agrupados apenas descritivos; as mensagens claras se repetem entre sementes."
+    },
+    "warning": "Repetições criptográficas dos mesmos textos claros: não são mensagens independentes. Agregação descritiva, sem teste de significância, garantia de generalização ou réplica histórica exata."
+  },
+  "wall_elapsed_ms": 925142.212708,
+  "concurrency": 4,
+  "resource_measurement": "Workers compartilham o processo Node: max_rss_bytes nas células é pico do processo compartilhado, não pico individual de cada semente.",
+  "warning": "Repetições criptográficas dos mesmos textos claros: não são mensagens independentes. Agregação descritiva, sem teste de significância, garantia de generalização ou réplica histórica exata."
+}

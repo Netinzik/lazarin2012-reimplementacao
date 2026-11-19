@@ -1,0 +1,325 @@
+════════════════════════════════════════════════════════════════
+  MÉTODO DE LAZARIN (2012) · Classificação de criptogramas
+════════════════════════════════════════════════════════════════
+  Pergunta: qual destas cifras gerou o arquivo? Blowfish, RC2, CAST5, XOR ou Cesar
+  O método não decifra o arquivo nem descobre a chave: compara padrões de bits.
+
+[1] AMBIENTE
+    Node v24.16.0 · motor de cifragem: Node.js (OpenSSL 3.5.6 embutido)
+    Modo ECB · 5 cifras, cada uma conferida com uma cifragem de teste:
+      ✓ Blowfish (chave 128 bits, bloco 64 bits, sem IV)
+      ✓ RC2 (chave 128 bits, bloco 64 bits, sem IV)
+      ✓ CAST5 (chave 128 bits, bloco 64 bits, sem IV)
+      ✓ XOR (chave 128 bits, sem IV · programa externo: python3 exemplos/cifra-xor.py)
+      ✓ Cesar (chave 8 bits, sem IV · programa externo: python3 exemplos/cifra-cesar.py)
+    Texto-base (Bíblia, Projeto Gutenberg) conferido por SHA-256 ✓
+
+[2] BASE DE REFERÊNCIA · gerada agora a partir da Bíblia
+    Semente informada: 202 → define as chaves e os IVs derivados
+    Chaves: derivadas da semente
+    IVs: sem IV
+    Trecho de teste informado: bytes 819.200 a 1.146.879 do texto bíblico (posição 101 de 583)
+    Início do trecho de teste (texto claro, só para ilustrar): "[42] Jos. 20.8. [43] cap. 3.29. [44] Num. 21.24. cap. 1.4. [45] Num. 21.…"
+    O restante do texto forma a base: 1.000 arquivos de 8.192 bytes (200 por cifra, 10 chaves)
+    Testes: 200 arquivos (40 por cifra), com chave própria, fora da base
+    1.200 arquivos cifrados gerados ✓ (11,2 s)
+    Validação: arquivos recifrados e conferidos com os hashes registrados ✓ (13,4 s)
+    Cada arquivo é dividido em criptotermos de 8 bytes: 1.024.000 na base, 849.158 distintos
+
+[3] BUSCA AUTOMÁTICA DE GRUPOS · investigação estrutural
+    Regra: dois arquivos se ligam quando têm um criptotermo IDÊNTICO.
+    Ligações: 9.500 · Grupos: 50 · Arquivos isolados: 0
+    → 50 grupos, nomeados delta_1, delta_2… (não são nomes de cifras).
+    → A base também é organizada por cifra:
+      as 10 chaves de cada cifra são divididas em 5 amostras.
+       Blowfish   5 amostras (34.409, 34.134, 33.096, 32.344, 33.357 termos) · 167.340 distintos
+       RC2        5 amostras (34.409, 34.134, 33.096, 32.344, 33.357 termos) · 167.340 distintos
+       CAST5      5 amostras (34.409, 34.134, 33.096, 32.344, 33.357 termos) · 167.340 distintos
+       XOR        5 amostras (36.669, 36.410, 35.749, 35.171, 35.799 termos) · 179.798 distintos
+       Cesar      5 amostras (34.409, 34.134, 33.096, 32.344, 33.357 termos) · 167.340 distintos
+
+Bateria de 200 arquivos: o primeiro aparece com as 8 etapas; os demais, uma linha cada.
+
+────────────────────────────────────────────────────────────────
+  ARQUIVO DE TESTE 1 de 200 · Tipo 3 · Blowfish, RC2, CAST5, XOR, Cesar
+────────────────────────────────────────────────────────────────
+[4] ENTRADA
+    8.192 bytes → 1.024 criptotermos de 8 bytes (64 bits)
+    Primeiros criptotermos (hex): ce0d6ab422d72705  bb0248ddd521738b  558cb13c51e5c74b  … (+1.021)
+    A cifra verdadeira fica escondida até o passo [8].
+
+[5] PESOS · distância de Hamming = quantos bits diferem entre dois criptotermos
+    Cada criptotermo da entrada procura o termo mais próximo dentro de cada amostra.
+    Se ele estiver tão perto quanto o melhor termo do resto da base, a amostra soma pontos.
+    Comparações: 1.024 × 849.158 = 869.537.792
+    ████████████████ 100% · 1.024/1.024 criptotermos · 2,0 s
+
+[6] ÍNDICE · I = 1 − desvio/média dos pesos · VR = 1 − I
+    Cifra      Pesos das amostras        Média   Desvio        I       VR
+    Blowfish   109, 96, 96, 76, 93       94,00   11,811   0,8744   0,1256
+    RC2        125, 105, 116, 84, 94    104,80   16,453   0,8430   0,1570
+    CAST5      112, 114, 108, 96, 103   106,60    7,266   0,9318   0,0682
+    XOR        62, 71, 53, 59, 52        59,40    7,701   0,8704   0,1296
+    Cesar      56, 62, 69, 77, 73        67,40    8,444   0,8747   0,1253
+    Pesos parecidos entre as amostras → desvio pequeno → I alto → VR baixo.
+    I mede a uniformidade dos pesos; não é probabilidade de acerto.
+
+[7] DECISÃO · Tipo 3 · cada par se enfrenta · vence o menor VR
+    Blowfish × RC2     0,1256 vs 0,1570  → Blowfish
+    Blowfish × CAST5   0,1256 vs 0,0682  → CAST5
+    Blowfish × XOR     0,1256 vs 0,1296  → Blowfish
+    Blowfish × Cesar   0,1256 vs 0,1253  → Cesar
+    RC2 × CAST5        0,1570 vs 0,0682  → CAST5
+    RC2 × XOR          0,1570 vs 0,1296  → XOR
+    RC2 × Cesar        0,1570 vs 0,1253  → Cesar
+    CAST5 × XOR        0,0682 vs 0,1296  → CAST5
+    CAST5 × Cesar      0,0682 vs 0,1253  → CAST5
+    XOR × Cesar        0,1296 vs 0,1253  → Cesar
+    Vitórias: CAST5 4 · Cesar 3 · Blowfish 2 · XOR 1 · RC2 0
+
+    ▶ PREVISÃO: CAST5
+    Caminho automático: delta_26 (grupo do método, não nome de cifra)
+
+[8] GABARITO · consultado só depois da previsão
+    Cifra real: Blowfish → ✗ ERRO (previsto: CAST5)
+    Caminho automático: delta_26 → na base, esse grupo tem arquivos de CAST5 (20)
+    Caso salvo em runs/sessoes/2026-11-19T14-25-04-960Z-semente-202/caso-0001.json
+
+────────────────────────────────────────────────────────────────
+  ARQUIVOS 2 A 200 · mesmas 8 etapas, uma linha por arquivo · Tipo 3 · Blowfish, RC2, CAST5, XOR, Cesar
+────────────────────────────────────────────────────────────────
+      2/200  real RC2       previsto RC2         ✓  acertos 1/2 (50,0%)
+      3/200  real CAST5     previsto RC2         ✗  acertos 1/3 (33,3%)
+      4/200  real XOR       previsto RC2         ✗  acertos 1/4 (25,0%)
+      5/200  real Cesar     previsto RC2         ✗  acertos 1/5 (20,0%)
+      6/200  real Blowfish  previsto RC2         ✗  acertos 1/6 (16,7%)
+      7/200  real RC2       previsto Cesar       ✗  acertos 1/7 (14,3%)
+      8/200  real CAST5     previsto RC2         ✗  acertos 1/8 (12,5%)
+      9/200  real XOR       previsto RC2         ✗  acertos 1/9 (11,1%)
+     10/200  real Cesar     previsto RC2         ✗  acertos 1/10 (10,0%)
+     11/200  real Blowfish  previsto XOR         ✗  acertos 1/11 (9,1%)
+     12/200  real RC2       previsto RC2         ✓  acertos 2/12 (16,7%)
+     13/200  real CAST5     previsto RC2         ✗  acertos 2/13 (15,4%)
+     14/200  real XOR       previsto RC2         ✗  acertos 2/14 (14,3%)
+     15/200  real Cesar     previsto Blowfish    ✗  acertos 2/15 (13,3%)
+     16/200  real Blowfish  previsto CAST5       ✗  acertos 2/16 (12,5%)
+     17/200  real RC2       previsto RC2         ✓  acertos 3/17 (17,6%)
+     18/200  real CAST5     previsto RC2         ✗  acertos 3/18 (16,7%)
+     19/200  real XOR       previsto RC2         ✗  acertos 3/19 (15,8%)
+     20/200  real Cesar     previsto Blowfish    ✗  acertos 3/20 (15,0%)
+     21/200  real Blowfish  previsto CAST5       ✗  acertos 3/21 (14,3%)
+     22/200  real RC2       previsto CAST5       ✗  acertos 3/22 (13,6%)
+     23/200  real CAST5     previsto Blowfish    ✗  acertos 3/23 (13,0%)
+     24/200  real XOR       previsto RC2         ✗  acertos 3/24 (12,5%)
+     25/200  real Cesar     previsto Blowfish    ✗  acertos 3/25 (12,0%)
+     26/200  real Blowfish  previsto RC2         ✗  acertos 3/26 (11,5%)
+     27/200  real RC2       previsto RC2         ✓  acertos 4/27 (14,8%)
+     28/200  real CAST5     previsto XOR         ✗  acertos 4/28 (14,3%)
+     29/200  real XOR       previsto RC2         ✗  acertos 4/29 (13,8%)
+     30/200  real Cesar     previsto CAST5       ✗  acertos 4/30 (13,3%)
+     31/200  real Blowfish  previsto XOR         ✗  acertos 4/31 (12,9%)
+     32/200  real RC2       previsto CAST5       ✗  acertos 4/32 (12,5%)
+     33/200  real CAST5     previsto RC2         ✗  acertos 4/33 (12,1%)
+     34/200  real XOR       previsto CAST5       ✗  acertos 4/34 (11,8%)
+     35/200  real Cesar     previsto RC2         ✗  acertos 4/35 (11,4%)
+     36/200  real Blowfish  previsto CAST5       ✗  acertos 4/36 (11,1%)
+     37/200  real RC2       previsto CAST5       ✗  acertos 4/37 (10,8%)
+     38/200  real CAST5     previsto Blowfish    ✗  acertos 4/38 (10,5%)
+     39/200  real XOR       previsto Blowfish    ✗  acertos 4/39 (10,3%)
+     40/200  real Cesar     previsto Blowfish    ✗  acertos 4/40 (10,0%)
+     41/200  real Blowfish  previsto Blowfish    ✓  acertos 5/41 (12,2%)
+     42/200  real RC2       previsto Cesar       ✗  acertos 5/42 (11,9%)
+     43/200  real CAST5     previsto CAST5       ✓  acertos 6/43 (14,0%)
+     44/200  real XOR       previsto Blowfish    ✗  acertos 6/44 (13,6%)
+     45/200  real Cesar     previsto RC2         ✗  acertos 6/45 (13,3%)
+     46/200  real Blowfish  previsto Cesar       ✗  acertos 6/46 (13,0%)
+     47/200  real RC2       previsto CAST5       ✗  acertos 6/47 (12,8%)
+     48/200  real CAST5     previsto Blowfish    ✗  acertos 6/48 (12,5%)
+     49/200  real XOR       previsto RC2         ✗  acertos 6/49 (12,2%)
+     50/200  real Cesar     previsto RC2         ✗  acertos 6/50 (12,0%)
+     51/200  real Blowfish  previsto Blowfish    ✓  acertos 7/51 (13,7%)
+     52/200  real RC2       previsto Blowfish    ✗  acertos 7/52 (13,5%)
+     53/200  real CAST5     previsto Cesar       ✗  acertos 7/53 (13,2%)
+     54/200  real XOR       previsto RC2         ✗  acertos 7/54 (13,0%)
+     55/200  real Cesar     previsto CAST5       ✗  acertos 7/55 (12,7%)
+     56/200  real Blowfish  previsto Blowfish    ✓  acertos 8/56 (14,3%)
+     57/200  real RC2       previsto CAST5       ✗  acertos 8/57 (14,0%)
+     58/200  real CAST5     previsto Blowfish    ✗  acertos 8/58 (13,8%)
+     59/200  real XOR       previsto Blowfish    ✗  acertos 8/59 (13,6%)
+     60/200  real Cesar     previsto RC2         ✗  acertos 8/60 (13,3%)
+     61/200  real Blowfish  previsto Cesar       ✗  acertos 8/61 (13,1%)
+     62/200  real RC2       previsto XOR         ✗  acertos 8/62 (12,9%)
+     63/200  real CAST5     previsto CAST5       ✓  acertos 9/63 (14,3%)
+     64/200  real XOR       previsto Blowfish    ✗  acertos 9/64 (14,1%)
+     65/200  real Cesar     previsto RC2         ✗  acertos 9/65 (13,8%)
+     66/200  real Blowfish  previsto CAST5       ✗  acertos 9/66 (13,6%)
+     67/200  real RC2       previsto CAST5       ✗  acertos 9/67 (13,4%)
+     68/200  real CAST5     previsto XOR         ✗  acertos 9/68 (13,2%)
+     69/200  real XOR       previsto Blowfish    ✗  acertos 9/69 (13,0%)
+     70/200  real Cesar     previsto RC2         ✗  acertos 9/70 (12,9%)
+     71/200  real Blowfish  previsto RC2         ✗  acertos 9/71 (12,7%)
+     72/200  real RC2       previsto CAST5       ✗  acertos 9/72 (12,5%)
+     73/200  real CAST5     previsto RC2         ✗  acertos 9/73 (12,3%)
+     74/200  real XOR       previsto CAST5       ✗  acertos 9/74 (12,2%)
+     75/200  real Cesar     previsto Blowfish    ✗  acertos 9/75 (12,0%)
+     76/200  real Blowfish  previsto CAST5       ✗  acertos 9/76 (11,8%)
+     77/200  real RC2       previsto Blowfish    ✗  acertos 9/77 (11,7%)
+     78/200  real CAST5     previsto Blowfish    ✗  acertos 9/78 (11,5%)
+     79/200  real XOR       previsto CAST5       ✗  acertos 9/79 (11,4%)
+     80/200  real Cesar     previsto RC2         ✗  acertos 9/80 (11,3%)
+     81/200  real Blowfish  previsto RC2         ✗  acertos 9/81 (11,1%)
+     82/200  real RC2       previsto Cesar       ✗  acertos 9/82 (11,0%)
+     83/200  real CAST5     previsto CAST5       ✓  acertos 10/83 (12,0%)
+     84/200  real XOR       previsto RC2         ✗  acertos 10/84 (11,9%)
+     85/200  real Cesar     previsto RC2         ✗  acertos 10/85 (11,8%)
+     86/200  real Blowfish  previsto CAST5       ✗  acertos 10/86 (11,6%)
+     87/200  real RC2       previsto RC2         ✓  acertos 11/87 (12,6%)
+     88/200  real CAST5     previsto CAST5       ✓  acertos 12/88 (13,6%)
+     89/200  real XOR       previsto RC2         ✗  acertos 12/89 (13,5%)
+     90/200  real Cesar     previsto CAST5       ✗  acertos 12/90 (13,3%)
+     91/200  real Blowfish  previsto Blowfish    ✓  acertos 13/91 (14,3%)
+     92/200  real RC2       previsto CAST5       ✗  acertos 13/92 (14,1%)
+     93/200  real CAST5     previsto CAST5       ✓  acertos 14/93 (15,1%)
+     94/200  real XOR       previsto CAST5       ✗  acertos 14/94 (14,9%)
+     95/200  real Cesar     previsto RC2         ✗  acertos 14/95 (14,7%)
+     96/200  real Blowfish  previsto CAST5       ✗  acertos 14/96 (14,6%)
+     97/200  real RC2       previsto CAST5       ✗  acertos 14/97 (14,4%)
+     98/200  real CAST5     previsto Blowfish    ✗  acertos 14/98 (14,3%)
+     99/200  real XOR       previsto CAST5       ✗  acertos 14/99 (14,1%)
+    100/200  real Cesar     previsto RC2         ✗  acertos 14/100 (14,0%)
+    101/200  real Blowfish  previsto CAST5       ✗  acertos 14/101 (13,9%)
+    102/200  real RC2       previsto RC2         ✓  acertos 15/102 (14,7%)
+    103/200  real CAST5     previsto CAST5       ✓  acertos 16/103 (15,5%)
+    104/200  real XOR       previsto CAST5       ✗  acertos 16/104 (15,4%)
+    105/200  real Cesar     previsto CAST5       ✗  acertos 16/105 (15,2%)
+    106/200  real Blowfish  previsto Blowfish    ✓  acertos 17/106 (16,0%)
+    107/200  real RC2       previsto CAST5       ✗  acertos 17/107 (15,9%)
+    108/200  real CAST5     previsto Blowfish    ✗  acertos 17/108 (15,7%)
+    109/200  real XOR       previsto CAST5       ✗  acertos 17/109 (15,6%)
+    110/200  real Cesar     previsto RC2         ✗  acertos 17/110 (15,5%)
+    111/200  real Blowfish  previsto Cesar       ✗  acertos 17/111 (15,3%)
+    112/200  real RC2       previsto Blowfish    ✗  acertos 17/112 (15,2%)
+    113/200  real CAST5     previsto CAST5       ✓  acertos 18/113 (15,9%)
+    114/200  real XOR       previsto Blowfish    ✗  acertos 18/114 (15,8%)
+    115/200  real Cesar     previsto Blowfish    ✗  acertos 18/115 (15,7%)
+    116/200  real Blowfish  previsto XOR         ✗  acertos 18/116 (15,5%)
+    117/200  real RC2       previsto RC2         ✓  acertos 19/117 (16,2%)
+    118/200  real CAST5     previsto CAST5       ✓  acertos 20/118 (16,9%)
+    119/200  real XOR       previsto RC2         ✗  acertos 20/119 (16,8%)
+    120/200  real Cesar     previsto RC2         ✗  acertos 20/120 (16,7%)
+    121/200  real Blowfish  previsto Blowfish    ✓  acertos 21/121 (17,4%)
+    122/200  real RC2       previsto Blowfish    ✗  acertos 21/122 (17,2%)
+    123/200  real CAST5     previsto Blowfish    ✗  acertos 21/123 (17,1%)
+    124/200  real XOR       previsto Blowfish    ✗  acertos 21/124 (16,9%)
+    125/200  real Cesar     previsto RC2         ✗  acertos 21/125 (16,8%)
+    126/200  real Blowfish  previsto CAST5       ✗  acertos 21/126 (16,7%)
+    127/200  real RC2       previsto Blowfish    ✗  acertos 21/127 (16,5%)
+    128/200  real CAST5     previsto RC2         ✗  acertos 21/128 (16,4%)
+    129/200  real XOR       previsto CAST5       ✗  acertos 21/129 (16,3%)
+    130/200  real Cesar     previsto RC2         ✗  acertos 21/130 (16,2%)
+    131/200  real Blowfish  previsto Blowfish    ✓  acertos 22/131 (16,8%)
+    132/200  real RC2       previsto RC2         ✓  acertos 23/132 (17,4%)
+    133/200  real CAST5     previsto CAST5       ✓  acertos 24/133 (18,0%)
+    134/200  real XOR       previsto Blowfish    ✗  acertos 24/134 (17,9%)
+    135/200  real Cesar     previsto RC2         ✗  acertos 24/135 (17,8%)
+    136/200  real Blowfish  previsto RC2         ✗  acertos 24/136 (17,6%)
+    137/200  real RC2       previsto Blowfish    ✗  acertos 24/137 (17,5%)
+    138/200  real CAST5     previsto CAST5       ✓  acertos 25/138 (18,1%)
+    139/200  real XOR       previsto Blowfish    ✗  acertos 25/139 (18,0%)
+    140/200  real Cesar     previsto Blowfish    ✗  acertos 25/140 (17,9%)
+    141/200  real Blowfish  previsto Cesar       ✗  acertos 25/141 (17,7%)
+    142/200  real RC2       previsto CAST5       ✗  acertos 25/142 (17,6%)
+    143/200  real CAST5     previsto RC2         ✗  acertos 25/143 (17,5%)
+    144/200  real XOR       previsto Blowfish    ✗  acertos 25/144 (17,4%)
+    145/200  real Cesar     previsto RC2         ✗  acertos 25/145 (17,2%)
+    146/200  real Blowfish  previsto Blowfish    ✓  acertos 26/146 (17,8%)
+    147/200  real RC2       previsto Blowfish    ✗  acertos 26/147 (17,7%)
+    148/200  real CAST5     previsto Cesar       ✗  acertos 26/148 (17,6%)
+    149/200  real XOR       previsto CAST5       ✗  acertos 26/149 (17,4%)
+    150/200  real Cesar     previsto RC2         ✗  acertos 26/150 (17,3%)
+    151/200  real Blowfish  previsto CAST5       ✗  acertos 26/151 (17,2%)
+    152/200  real RC2       previsto CAST5       ✗  acertos 26/152 (17,1%)
+    153/200  real CAST5     previsto XOR         ✗  acertos 26/153 (17,0%)
+    154/200  real XOR       previsto CAST5       ✗  acertos 26/154 (16,9%)
+    155/200  real Cesar     previsto RC2         ✗  acertos 26/155 (16,8%)
+    156/200  real Blowfish  previsto RC2         ✗  acertos 26/156 (16,7%)
+    157/200  real RC2       previsto CAST5       ✗  acertos 26/157 (16,6%)
+    158/200  real CAST5     previsto Blowfish    ✗  acertos 26/158 (16,5%)
+    159/200  real XOR       previsto CAST5       ✗  acertos 26/159 (16,4%)
+    160/200  real Cesar     previsto Blowfish    ✗  acertos 26/160 (16,3%)
+    161/200  real Blowfish  previsto RC2         ✗  acertos 26/161 (16,1%)
+    162/200  real RC2       previsto XOR         ✗  acertos 26/162 (16,0%)
+    163/200  real CAST5     previsto Blowfish    ✗  acertos 26/163 (16,0%)
+    164/200  real XOR       previsto CAST5       ✗  acertos 26/164 (15,9%)
+    165/200  real Cesar     previsto Blowfish    ✗  acertos 26/165 (15,8%)
+    166/200  real Blowfish  previsto Blowfish    ✓  acertos 27/166 (16,3%)
+    167/200  real RC2       previsto Cesar       ✗  acertos 27/167 (16,2%)
+    168/200  real CAST5     previsto RC2         ✗  acertos 27/168 (16,1%)
+    169/200  real XOR       previsto Blowfish    ✗  acertos 27/169 (16,0%)
+    170/200  real Cesar     previsto RC2         ✗  acertos 27/170 (15,9%)
+    171/200  real Blowfish  previsto CAST5       ✗  acertos 27/171 (15,8%)
+    172/200  real RC2       previsto CAST5       ✗  acertos 27/172 (15,7%)
+    173/200  real CAST5     previsto XOR         ✗  acertos 27/173 (15,6%)
+    174/200  real XOR       previsto RC2         ✗  acertos 27/174 (15,5%)
+    175/200  real Cesar     previsto CAST5       ✗  acertos 27/175 (15,4%)
+    176/200  real Blowfish  previsto Blowfish    ✓  acertos 28/176 (15,9%)
+    177/200  real RC2       previsto CAST5       ✗  acertos 28/177 (15,8%)
+    178/200  real CAST5     previsto RC2         ✗  acertos 28/178 (15,7%)
+    179/200  real XOR       previsto RC2         ✗  acertos 28/179 (15,6%)
+    180/200  real Cesar     previsto CAST5       ✗  acertos 28/180 (15,6%)
+    181/200  real Blowfish  previsto Blowfish    ✓  acertos 29/181 (16,0%)
+    182/200  real RC2       previsto XOR         ✗  acertos 29/182 (15,9%)
+    183/200  real CAST5     previsto RC2         ✗  acertos 29/183 (15,8%)
+    184/200  real XOR       previsto Blowfish    ✗  acertos 29/184 (15,8%)
+    185/200  real Cesar     previsto RC2         ✗  acertos 29/185 (15,7%)
+    186/200  real Blowfish  previsto CAST5       ✗  acertos 29/186 (15,6%)
+    187/200  real RC2       previsto XOR         ✗  acertos 29/187 (15,5%)
+    188/200  real CAST5     previsto CAST5       ✓  acertos 30/188 (16,0%)
+    189/200  real XOR       previsto RC2         ✗  acertos 30/189 (15,9%)
+    190/200  real Cesar     previsto Blowfish    ✗  acertos 30/190 (15,8%)
+    191/200  real Blowfish  previsto Blowfish    ✓  acertos 31/191 (16,2%)
+    192/200  real RC2       previsto CAST5       ✗  acertos 31/192 (16,1%)
+    193/200  real CAST5     previsto Blowfish    ✗  acertos 31/193 (16,1%)
+    194/200  real XOR       previsto CAST5       ✗  acertos 31/194 (16,0%)
+    195/200  real Cesar     previsto CAST5       ✗  acertos 31/195 (15,9%)
+    196/200  real Blowfish  previsto Blowfish    ✓  acertos 32/196 (16,3%)
+    197/200  real RC2       previsto Blowfish    ✗  acertos 32/197 (16,2%)
+    198/200  real CAST5     previsto Blowfish    ✗  acertos 32/198 (16,2%)
+    199/200  real XOR       previsto RC2         ✗  acertos 32/199 (16,1%)
+    200/200  real Cesar     previsto Blowfish    ✗  acertos 32/200 (16,0%)
+
+════════════════════════════════════════════════════════════════
+  RESUMO DA BATERIA · semente 202 · Tipo 3 · Blowfish, RC2, CAST5, XOR, Cesar
+════════════════════════════════════════════════════════════════
+  Arquivos classificados: 200 de 200 · tempo: 28 min 8 s
+  Acertos: 32/200 (16,00%) · sem classe: 0
+
+  Matriz de confusão · linha = cifra real, coluna = previsão
+             Blowfish   RC2   CAST5   XOR   Cesar
+  Blowfish         13     7      13     3       4
+  RC2               8     8      16     4       4
+  CAST5            12    11      11     4       2
+  XOR              12    15      13     0       0
+  Cesar            11    22       7     0       0
+
+  Comparação: escolher sempre a mesma cifra acertaria 40/200 (20,00%).
+
+  Caminho automático · grupos formados sem olhar os rótulos (cifra real da base consultada só agora)
+    delta_1   Blowfish (20)
+    delta_2   Blowfish (20)
+    delta_3   Blowfish (20)
+    delta_4   Blowfish (20)
+    delta_5   Blowfish (20)
+    delta_6   Blowfish (20)
+    delta_7   Blowfish (20)
+    delta_8   Blowfish (20)
+    delta_9   Blowfish (20)
+    delta_10  Blowfish (20)
+    delta_11  RC2 (20)
+    delta_12  RC2 (20)
+    … e mais 38 grupos
+  Testes com grupo previsto: 200 de 200 · o grupo previsto é, na maioria, da cifra certa em 90 (45,00%)
+
+  Registro desta execução (terminal, casos, base cifrada e config.json): runs/sessoes/2026-11-19T14-25-04-960Z-semente-202
+  Para repetir exatamente esta execução (todas as escolhas estão no config.json):
+    npm run classificar -- --config runs/sessoes/2026-11-19T14-25-04-960Z-semente-202/config.json

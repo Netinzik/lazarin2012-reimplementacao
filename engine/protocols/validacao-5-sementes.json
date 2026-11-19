@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "kind": "repeated_keys_validation",
+  "protocol": "biblia-1m.json",
+  "seeds": [2026, 2027, 2028, 2029, 2030],
+  "concurrency": 4,
+  "baseline": {
+    "seed": 2026,
+    "dataset": "../runs/biblia-1m",
+    "evaluation": "../runs/avaliacao-1m"
+  },
+  "interpretation": "2026 é exploratória e preexistente. 2027 a 2030 são novas repetições prospectivas, mantendo textos claros e variando chaves e IVs. Sem seleção posterior do melhor resultado."
+}

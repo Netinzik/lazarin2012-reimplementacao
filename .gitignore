@@ -1,0 +1,4 @@
+node_modules/
+runs/sessoes/
+.DS_Store
+__pycache__/
