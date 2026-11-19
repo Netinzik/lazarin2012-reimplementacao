@@ -4,7 +4,8 @@ export function preprocess(input) {
   const cryptograms = [...input];
   const byId = new Map(cryptograms.map(c => [c.identifier, c]));
   if (byId.size !== cryptograms.length) throw new Error('Identificadores devem ser únicos');
-  const terms = new Set(), occurrences = [];
+  const terms = new Set(),
+    occurrences = [];
   for (const c of cryptograms) {
     for (const term of sortTerms(new Set(c.terms))) {
       terms.add(term);
@@ -12,11 +13,14 @@ export function preprocess(input) {
     }
   }
   return {
-    cryptograms, terms, occurrences, ordered_ids: [...byId.keys()],
+    cryptograms,
+    terms,
+    occurrences,
+    ordered_ids: [...byId.keys()],
     cryptogram(id) {
       if (!byId.has(id)) throw new Error('Criptograma ausente: ' + id);
       return byId.get(id);
-    }
+    },
   };
 }
 
@@ -45,8 +49,9 @@ export function findIntersections(corpus) {
     }
     for (const j of [...commonByRight.keys()].sort((a, b) => a - b)) {
       result.push({
-        left: corpus.ordered_ids[i], right: corpus.ordered_ids[j],
-        common_terms: commonByRight.get(j)
+        left: corpus.ordered_ids[i],
+        right: corpus.ordered_ids[j],
+        common_terms: commonByRight.get(j),
       });
     }
   }
@@ -61,10 +66,12 @@ export function groupIntersections(corpus, intersections) {
     adjacency.get(edge.right).add(edge.left);
   }
   const ungrouped = corpus.ordered_ids.filter(id => !adjacency.get(id).size);
-  const visited = new Set(ungrouped), groups = [];
+  const visited = new Set(ungrouped),
+    groups = [];
   for (const root of corpus.ordered_ids) {
     if (visited.has(root)) continue;
-    const stack = [root], component = new Set();
+    const stack = [root],
+      component = new Set();
     while (stack.length) {
       const current = stack.pop();
       if (visited.has(current)) continue;

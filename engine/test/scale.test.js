@@ -8,12 +8,21 @@ import { referenceTermStats, benchmarkDataset } from '../src/scale.js';
 import { temporary } from './fixtures.mjs';
 
 test('contagens separam ocorrências, união distinta e amostras sobrepostas', () => {
-  const model = ReferenceModel.fromSamples({ A: [[1, 2], [2, 3]], B: [[2, 4], [4, 5]] });
+  const model = ReferenceModel.fromSamples({
+    A: [
+      [1, 2],
+      [2, 3],
+    ],
+    B: [
+      [2, 4],
+      [4, 5],
+    ],
+  });
   const records = [
     { algorithm: 'A', bytes: 24, sample_index: 0 },
     { algorithm: 'A', bytes: 16, sample_index: 1 },
     { algorithm: 'B', bytes: 16, sample_index: 0 },
-    { algorithm: 'B', bytes: 16, sample_index: 1 }
+    { algorithm: 'B', bytes: 16, sample_index: 1 },
   ];
   const result = referenceTermStats(model, records);
   assert.equal(result.files, 4);
@@ -23,7 +32,7 @@ test('contagens separam ocorrências, união distinta e amostras sobrepostas', (
   assert.equal(result.per_algorithm.B.distinct, 3);
   assert.deepEqual(result.per_algorithm.A.samples, [
     { sample_index: 0, files: 1, occurrences: 3, distinct: 2 },
-    { sample_index: 1, files: 1, occurrences: 2, distinct: 2 }
+    { sample_index: 1, files: 1, occurrences: 2, distinct: 2 },
   ]);
   assert.doesNotThrow(() => JSON.stringify(result));
 });
@@ -47,10 +56,16 @@ test('registros malformados não geram contagens plausíveis incorretas', () => 
 });
 
 test('benchmark limitado registra casos, estimativa e ambiente sem alegar eficácia', t => {
-  const root = temporary(t), dataset = path.join(root, 'dataset'), output = path.join(root, 'benchmark');
+  const root = temporary(t),
+    dataset = path.join(root, 'dataset'),
+    output = path.join(root, 'benchmark');
   generateDataset(dataset, {
-    seed: 777, textBytes: 64, referenceKeys: 2, referencePerKey: 1,
-    samples: 2, testsPerAlgorithm: 2
+    seed: 777,
+    textBytes: 64,
+    referenceKeys: 2,
+    referencePerKey: 1,
+    samples: 2,
+    testsPerAlgorithm: 2,
   });
   const progress = [];
   const result = benchmarkDataset(dataset, output, { onProgress: item => progress.push(item) });
@@ -68,7 +83,9 @@ test('benchmark limitado registra casos, estimativa e ambiente sem alegar eficá
   assert.equal(result.estimated_full_total_ms, result.setup_ms + result.estimated_full_predict_ms);
   assert.equal(progress.length, 3);
   assert.equal(progress.at(-1).completed, 3);
-  assert.ok(result.cases.every(row => row.case_ms >= 0 && row.result.decision_type === 3 && !Object.hasOwn(row, 'actual')));
+  assert.ok(
+    result.cases.every(row => row.case_ms >= 0 && row.result.decision_type === 3 && !Object.hasOwn(row, 'actual')),
+  );
   assert.equal(result.dataset.manifest_sha256.length, 64);
   assert.equal(result.execution.node, process.version);
   assert.match(result.warning, /não medida de eficácia/);
@@ -77,10 +94,15 @@ test('benchmark limitado registra casos, estimativa e ambiente sem alegar eficá
 });
 
 test('quantidade de benchmark é explícita, limitada e exige casos disponíveis', t => {
-  const root = temporary(t), dataset = path.join(root, 'dataset');
+  const root = temporary(t),
+    dataset = path.join(root, 'dataset');
   generateDataset(dataset, {
-    seed: 778, textBytes: 64, referenceKeys: 2, referencePerKey: 1,
-    samples: 2, testsPerAlgorithm: 2
+    seed: 778,
+    textBytes: 64,
+    referenceKeys: 2,
+    referencePerKey: 1,
+    samples: 2,
+    testsPerAlgorithm: 2,
   });
   for (const perAlgorithm of [0, -1, 1.5, 11, NaN, Infinity, '1'])
     assert.throws(() => benchmarkDataset(dataset, path.join(root, 'invalid'), { perAlgorithm }), /perAlgorithm/);

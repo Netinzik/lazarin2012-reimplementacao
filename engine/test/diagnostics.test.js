@@ -10,7 +10,10 @@ test('controle positivo percorre agrupamento, coloração, peso, índice e decis
   const controls = structuralControls();
   assert.equal(controls.passed, true);
   assert.equal(controls.positive.groups.length, 2);
-  assert.deepEqual(controls.positive.groups.map(g => g.samples.length), [2, 2]);
+  assert.deepEqual(
+    controls.positive.groups.map(g => g.samples.length),
+    [2, 2],
+  );
   assert.equal(controls.positive.prediction.prediction, 'delta_2');
   assert.deepEqual(controls.positive.prediction.scores.delta_1.weights, [2, 1]);
   assert.deepEqual(controls.positive.prediction.scores.delta_2.weights, [1, 1]);
@@ -28,10 +31,16 @@ test('remoção de interseção e clique preservam condições estruturais exata
 });
 
 test('diagnóstico negativo de CBC real e controle de envelope ficam separados', t => {
-  const root = temporary(t), data = path.join(root, 'dataset'), output = path.join(root, 'diagnosis');
+  const root = temporary(t),
+    data = path.join(root, 'dataset'),
+    output = path.join(root, 'diagnosis');
   const manifest = generateDataset(data, {
-    seed: 60601, textBytes: 64, referenceKeys: 2,
-    referencePerKey: 1, samples: 2, testsPerAlgorithm: 1
+    seed: 60601,
+    textBytes: 64,
+    referenceKeys: 2,
+    referencePerKey: 1,
+    samples: 2,
+    testsPerAlgorithm: 1,
   });
   const before = manifest.records.map(r => fs.readFileSync(path.join(data, r.path)));
   const result = diagnoseDataset(data, output);
@@ -54,20 +63,31 @@ test('diagnóstico negativo de CBC real e controle de envelope ficam separados',
   assert.deepEqual(envelope.mixed_algorithm_component, ['Blowfish', 'RC2', 'CAST5']);
   assert.equal(new Set(envelope.payloads.map(p => p.simulated_salt_hex)).size, 6);
   assert.ok(envelope.payloads.every(p => p.payload_sha256 === p.recovered_payload_sha256));
-  assert.deepEqual(manifest.records.map(r => fs.readFileSync(path.join(data, r.path))), before);
+  assert.deepEqual(
+    manifest.records.map(r => fs.readFileSync(path.join(data, r.path))),
+    before,
+  );
   assert.deepEqual(JSON.parse(fs.readFileSync(path.join(output, 'diagnostic.json'))), result);
   assert.match(fs.readFileSync(path.join(output, 'report.md'), 'utf8'), /não prova que os arquivos de 2012/);
   assert.throws(() => diagnoseDataset(data, output), /existe/);
 });
 
 test('diagnóstico não grava saídas se o conjunto foi adulterado', t => {
-  const root = temporary(t), data = path.join(root, 'dataset'), output = path.join(root, 'diagnosis');
+  const root = temporary(t),
+    data = path.join(root, 'dataset'),
+    output = path.join(root, 'diagnosis');
   const manifest = generateDataset(data, {
-    seed: 60602, textBytes: 64, referenceKeys: 2,
-    referencePerKey: 1, samples: 2, testsPerAlgorithm: 1
+    seed: 60602,
+    textBytes: 64,
+    referenceKeys: 2,
+    referencePerKey: 1,
+    samples: 2,
+    testsPerAlgorithm: 1,
   });
-  const file = path.join(data, manifest.records[0].path), bytes = fs.readFileSync(file);
-  bytes[0] ^= 1; fs.writeFileSync(file, bytes);
+  const file = path.join(data, manifest.records[0].path),
+    bytes = fs.readFileSync(file);
+  bytes[0] ^= 1;
+  fs.writeFileSync(file, bytes);
   assert.throws(() => diagnoseDataset(data, output), /alterado|divergente/);
   assert.equal(fs.existsSync(output), false);
 });

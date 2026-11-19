@@ -20,7 +20,10 @@ export function cifrarBloco(bloco, chave) {
 }
 
 export function decifrarBloco(bloco, chave) {
-  const posicoes = ordem(chave), saida = new Uint8Array(8);
-  posicoes.forEach((p, i) => { saida[p] = bloco[i]; });
+  const posicoes = ordem(chave),
+    saida = new Uint8Array(8);
+  posicoes.forEach((p, i) => {
+    saida[p] = bloco[i];
+  });
   return saida;
 }

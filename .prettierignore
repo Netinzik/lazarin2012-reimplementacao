@@ -1,0 +1,10 @@
+node_modules/
+pnpm-lock.yaml
+engine/data/
+engine/protocols/
+engine/runs/
+runs/sessoes/
+runs/*/configs/
+runs/*/dados/
+runs/*/logs/
+runs/*/RESUMO.md

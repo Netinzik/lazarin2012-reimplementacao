@@ -4,7 +4,13 @@ import { Worker } from 'node:worker_threads';
 import { normalizeCrypto } from '../engine/src/dataset.js';
 
 export const CORPUS_BODY_BYTES = 5_103_443;
-export const SIZE_KEYS = Object.freeze(['textBytes', 'referenceKeys', 'referencePerKey', 'samples', 'testsPerAlgorithm']);
+export const SIZE_KEYS = Object.freeze([
+  'textBytes',
+  'referenceKeys',
+  'referencePerKey',
+  'samples',
+  'testsPerAlgorithm',
+]);
 
 export const BASE_CONFIG = Object.freeze({
   algorithms: Object.freeze(['Blowfish', 'RC2', 'CAST5']),
@@ -43,7 +49,8 @@ export function buildConfig({ seed, testStartByte, sizes, crypto } = {}) {
   const drawn = { seed: seed === undefined, testStartByte: testStartByte === undefined };
   const chosenSeed = drawn.seed ? randomInt(1, 1_000_000_000) : seed;
   const chosenStart = drawn.testStartByte ? randomInt(0, range.positions) * range.step : testStartByte;
-  if (!Number.isSafeInteger(chosenSeed) || chosenSeed < 0) throw new RangeError('A semente deve ser um inteiro não negativo.');
+  if (!Number.isSafeInteger(chosenSeed) || chosenSeed < 0)
+    throw new RangeError('A semente deve ser um inteiro não negativo.');
   if (!Number.isSafeInteger(chosenStart) || chosenStart < 0 || chosenStart > range.max || chosenStart % range.step)
     throw new RangeError(`O início do trecho de teste deve ser múltiplo de ${range.step} entre 0 e ${range.max}.`);
   const config = {
@@ -65,8 +72,12 @@ export function baseSummary(config) {
   const referenceFiles = referencePerAlgorithm * config.algorithms.length;
   const testFiles = config.testsPerAlgorithm * config.algorithms.length;
   return {
-    referencePerAlgorithm, referenceFiles, testFiles, totalFiles: referenceFiles + testFiles,
-    termsPerFile: config.textBytes / 8, referenceTerms: referenceFiles * config.textBytes / 8,
+    referencePerAlgorithm,
+    referenceFiles,
+    testFiles,
+    totalFiles: referenceFiles + testFiles,
+    termsPerFile: config.textBytes / 8,
+    referenceTerms: (referenceFiles * config.textBytes) / 8,
   };
 }
 
@@ -77,38 +88,50 @@ function abortError() {
   return error;
 }
 
-export function prepareDataset({ directory, config, onStage = () => { }, signal } = {}) {
-  if (typeof directory !== 'string' || !directory.trim()) return Promise.reject(new TypeError('Informe a pasta da base.'));
+export function prepareDataset({ directory, config, onStage = () => {}, signal } = {}) {
+  if (typeof directory !== 'string' || !directory.trim())
+    return Promise.reject(new TypeError('Informe a pasta da base.'));
   if (!config || typeof config !== 'object') return Promise.reject(new TypeError('Informe a configuração da base.'));
   if (typeof onStage !== 'function') return Promise.reject(new TypeError('onStage deve ser uma função.'));
   if (signal?.aborted) return Promise.reject(abortError());
-  if (fs.existsSync(directory)) return Promise.reject(new Error('A pasta da base já existe; nenhuma base é sobrescrita: ' + directory));
+  if (fs.existsSync(directory))
+    return Promise.reject(new Error('A pasta da base já existe; nenhuma base é sobrescrita: ' + directory));
   return new Promise((resolve, reject) => {
-    const worker = new Worker(new URL('./base-worker.mjs', import.meta.url), { execArgv: [], workerData: { directory, config } });
+    const worker = new Worker(new URL('./base-worker.mjs', import.meta.url), {
+      execArgv: [],
+      workerData: { directory, config },
+    });
     let settled = false;
     const cleanup = () => signal?.removeEventListener('abort', onAbort);
     const fail = error => {
       if (settled) return;
-      settled = true; cleanup();
-      worker.terminate().catch(() => { });
+      settled = true;
+      cleanup();
+      worker.terminate().catch(() => {});
       reject(error);
     };
     const onAbort = () => fail(abortError());
     signal?.addEventListener('abort', onAbort, { once: true });
     worker.on('message', message => {
       if (settled) return;
-      if (signal?.aborted) { onAbort(); return; }
+      if (signal?.aborted) {
+        onAbort();
+        return;
+      }
       if (message.type === 'stage') onStage(message.event);
       else if (message.type === 'failure') {
         const error = new Error(message.error.message);
         error.name = message.error.name ?? 'Error';
         fail(error);
       } else if (message.type === 'result') {
-        settled = true; cleanup();
+        settled = true;
+        cleanup();
         resolve({ directory, manifest: message.manifest, inspection: message.inspection });
       }
     });
     worker.once('error', fail);
-    worker.once('exit', code => { if (!settled) fail(new Error(`A geração da base terminou sem resultado (código ${code}).`)); });
+    worker.once('exit', code => {
+      if (!settled) fail(new Error(`A geração da base terminou sem resultado (código ${code}).`));
+    });
   });
 }

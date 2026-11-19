@@ -12,7 +12,8 @@ export const nome = 'Hill (matriz 8×8 mod 256)';
 export const blocoBytes = 8;
 export const chaveBytes = 64;
 
-let ultimaChave = null, ultimaMatriz = null;
+let ultimaChave = null,
+  ultimaMatriz = null;
 
 function partes(chave) {
   const L = Array.from({ length: 8 }, (_, i) => Array.from({ length: 8 }, (_, j) => (i === j ? 1 : 0)));
@@ -25,20 +26,24 @@ function partes(chave) {
 }
 
 function matriz(chave) {
-  if (ultimaChave && ultimaChave.length === chave.length && ultimaChave.every((b, i) => b === chave[i])) return ultimaMatriz;
+  if (ultimaChave && ultimaChave.length === chave.length && ultimaChave.every((b, i) => b === chave[i]))
+    return ultimaMatriz;
   const { L, U } = partes(chave);
-  const M = Array.from({ length: 8 }, (_, i) => Array.from({ length: 8 }, (_, j) => {
-    let soma = 0;
-    for (let t = 0; t < 8; t++) soma += L[i][t] * U[t][j];
-    return soma & 255;
-  }));
+  const M = Array.from({ length: 8 }, (_, i) =>
+    Array.from({ length: 8 }, (_, j) => {
+      let soma = 0;
+      for (let t = 0; t < 8; t++) soma += L[i][t] * U[t][j];
+      return soma & 255;
+    }),
+  );
   ultimaChave = Uint8Array.from(chave);
   ultimaMatriz = M;
   return M;
 }
 
 export function cifrarBloco(bloco, chave) {
-  const M = matriz(chave), saida = new Uint8Array(8);
+  const M = matriz(chave),
+    saida = new Uint8Array(8);
   for (let i = 0; i < 8; i++) {
     let soma = 0;
     for (let j = 0; j < 8; j++) soma += M[i][j] * bloco[j];

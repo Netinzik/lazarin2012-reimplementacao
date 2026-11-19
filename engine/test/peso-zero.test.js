@@ -16,11 +16,14 @@ test('sem peso perde: no Tipo 3, a única cifra com peso vence todos os confront
   assert.equal(result.prediction, 'XOR');
   assert.deepEqual(result.zero_weight_candidates, ['A', 'B']);
   assert.deepEqual(result.decision.edge_weights, { A: 0, B: 0, XOR: 2 });
-  assert.equal(result.decision.pairwise_decisions.find(p => p.candidate_j === 'A' && p.candidate_k === 'B').winner, null);
+  assert.equal(
+    result.decision.pairwise_decisions.find(p => p.candidate_j === 'A' && p.candidate_k === 'B').winner,
+    null,
+  );
 });
 
 test('sem peso perde: com duas cifras definidas, elas disputam entre si pela regra normal', () => {
-  const result = decideScores({ A: zero, B: defined(0.90), C: defined(0.95) }, { decisionType: 3, zeroWeight: 'perde' });
+  const result = decideScores({ A: zero, B: defined(0.9), C: defined(0.95) }, { decisionType: 3, zeroWeight: 'perde' });
   assert.equal(result.prediction, 'C');
   assert.deepEqual(result.decision.edge_weights, { A: 0, B: 1, C: 2 });
 });
@@ -37,6 +40,9 @@ test('sem peso perde: Tipo 1 rejeita a hipótese sem peso; Tipo 2 escolhe a cifr
 });
 
 test('sem peso perde: se todas ficam sem peso, a regra se abstém; valor inválido é recusado', () => {
-  assert.equal(decideScores({ A: zero, B: zero }, { decisionType: 3, zeroWeight: 'perde' }).abstention_reason, 'undefined_index');
+  assert.equal(
+    decideScores({ A: zero, B: zero }, { decisionType: 3, zeroWeight: 'perde' }).abstention_reason,
+    'undefined_index',
+  );
   assert.throws(() => decideScores({ A: defined(0.9), B: defined(0.8) }, { zeroWeight: 'talvez' }), /zeroWeight/);
 });

@@ -7,8 +7,14 @@ import { BASE_CONFIG, buildConfig, baseSummary, testStartRange, prepareDataset }
 import { inspectDataset } from '../../engine/src/evaluation.js';
 
 const tiny = {
-  seed: 7, algorithms: ['Blowfish', 'RC2', 'CAST5'], textBytes: 32, referenceKeys: 2,
-  referencePerKey: 1, samples: 2, testsPerAlgorithm: 1, testStartByte: 64
+  seed: 7,
+  algorithms: ['Blowfish', 'RC2', 'CAST5'],
+  textBytes: 32,
+  referenceKeys: 2,
+  referencePerKey: 1,
+  samples: 2,
+  testsPerAlgorithm: 1,
+  testStartByte: 64,
 };
 
 function temporary(t) {
@@ -63,7 +69,8 @@ test('início desalinhado, negativo ou além do texto é recusado', () => {
 });
 
 test('a base é gerada em worker, validada e inspecionada sem grupos inventados', async t => {
-  const directory = path.join(temporary(t), 'base'), events = [];
+  const directory = path.join(temporary(t), 'base'),
+    events = [];
   const result = await prepareDataset({ directory, config: tiny, onStage: e => events.push(e.stage) });
   assert.equal(result.manifest.records.length, 9);
   assert.equal(result.inspection.reference_files, 6);
@@ -90,18 +97,31 @@ test('pasta existente nunca é sobrescrita; cancelamento prévio não cria nada'
   const controller = new AbortController();
   controller.abort();
   const untouched = path.join(root, 'nao-criar');
-  await assert.rejects(prepareDataset({ directory: untouched, config: tiny, signal: controller.signal }), { name: 'AbortError' });
+  await assert.rejects(prepareDataset({ directory: untouched, config: tiny, signal: controller.signal }), {
+    name: 'AbortError',
+  });
   assert.equal(fs.existsSync(untouched), false);
 });
 
 test('cancelamento durante a geração interrompe e erros de contrato são explícitos', async t => {
-  const root = temporary(t), controller = new AbortController();
-  await assert.rejects(prepareDataset({
-    directory: path.join(root, 'base'), config: tiny, signal: controller.signal,
-    onStage: stage => { if (stage.stage === 'generation-start') controller.abort(); }
-  }), { name: 'AbortError' });
+  const root = temporary(t),
+    controller = new AbortController();
+  await assert.rejects(
+    prepareDataset({
+      directory: path.join(root, 'base'),
+      config: tiny,
+      signal: controller.signal,
+      onStage: stage => {
+        if (stage.stage === 'generation-start') controller.abort();
+      },
+    }),
+    { name: 'AbortError' },
+  );
   await assert.rejects(prepareDataset({ directory: '', config: tiny }), /pasta/);
   await assert.rejects(prepareDataset({ directory: path.join(root, 'x') }), /configuração/);
   await assert.rejects(prepareDataset({ directory: path.join(root, 'y'), config: tiny, onStage: 'texto' }), /onStage/);
-  await assert.rejects(prepareDataset({ directory: path.join(root, 'z'), config: { ...tiny, textBytes: 12 } }), /múltiplo/);
+  await assert.rejects(
+    prepareDataset({ directory: path.join(root, 'z'), config: { ...tiny, textBytes: 12 } }),
+    /múltiplo/,
+  );
 });

@@ -9,14 +9,29 @@ test('pesos em lote equivalem ao Algoritmo 2 em 100 casos de 64 bits', () => {
   const random = rng();
   for (let c = 0; c < 100; c++) {
     const universe = Array.from({ length: 24 }, () => (BigInt(random()) << 32n) | BigInt(random()));
-    const samples = Array.from({ length: 6 }, () => new Set(Array.from({ length: 12 }, () => universe[random() % universe.length])));
+    const samples = Array.from(
+      { length: 6 },
+      () => new Set(Array.from({ length: 12 }, () => universe[random() % universe.length])),
+    );
     const m = ReferenceModel.fromSamples({ A: samples.slice(0, 3), B: samples.slice(3) });
-    const d = Cryptogram.fromTerms('D', Array.from({ length: 12 }, () => (BigInt(random()) << 32n) | BigInt(random())));
-    assert.deepEqual(m.weights(d), samples.map(s => edgeWeight(d, s, m.terms)));
+    const d = Cryptogram.fromTerms(
+      'D',
+      Array.from({ length: 12 }, () => (BigInt(random()) << 32n) | BigInt(random())),
+    );
+    assert.deepEqual(
+      m.weights(d),
+      samples.map(s => edgeWeight(d, s, m.terms)),
+    );
   }
 });
 test('sobreposição de termos conta em cada amostra e repetições em D', () => {
-  const m = ReferenceModel.fromSamples({ A: [[0, 3], [0, 3]], B: [[15], [15]] });
+  const m = ReferenceModel.fromSamples({
+    A: [
+      [0, 3],
+      [0, 3],
+    ],
+    B: [[15], [15]],
+  });
   assert.deepEqual(m.weights(Cryptogram.fromTerms('D', [1, 1])), [4, 4, 0, 0]);
 });
 test('distância 64 é preservada no lote', () => {
@@ -44,7 +59,8 @@ test('referência suporta os três tipos e empate favorece segundo', () => {
   assert.equal(m.predict(d, 3).prediction, 'B');
 });
 test('leitura de raw, hex e Base64', t => {
-  const root = temporary(t), data = Buffer.from(Array.from({ length: 16 }, (_, i) => i));
+  const root = temporary(t),
+    data = Buffer.from(Array.from({ length: 16 }, (_, i) => i));
   for (const encoding of ['raw', 'hex', 'base64']) {
     const file = path.join(root, encoding);
     fs.writeFileSync(file, encoding === 'raw' ? data : data.toString(encoding));
@@ -53,14 +69,23 @@ test('leitura de raw, hex e Base64', t => {
 });
 test('entrada vazia, não alinhada e codificação inválida são rejeitadas', t => {
   const file = path.join(temporary(t), 'data');
-  for (const [data, encoding] of [['', 'raw'], ['123', 'raw'], ['???', 'base64'], ['a b', 'hex'], ['zz', 'hex']]) {
+  for (const [data, encoding] of [
+    ['', 'raw'],
+    ['123', 'raw'],
+    ['???', 'base64'],
+    ['a b', 'hex'],
+    ['zz', 'hex'],
+  ]) {
     fs.writeFileSync(file, data);
     assert.throws(() => readCiphertext(file, encoding));
   }
 });
 test('manifesto não escapa da raiz por .. ou symlink', t => {
-  const root = temporary(t), inside = path.join(root, 'inside'), outside = path.join(root, 'outside');
-  fs.mkdirSync(inside); fs.writeFileSync(outside, Buffer.alloc(8));
+  const root = temporary(t),
+    inside = path.join(root, 'inside'),
+    outside = path.join(root, 'outside');
+  fs.mkdirSync(inside);
+  fs.writeFileSync(outside, Buffer.alloc(8));
   assert.throws(() => localFile(inside, '../outside'), /fora/);
   fs.symlinkSync(outside, path.join(inside, 'link'));
   assert.throws(() => localFile(inside, 'link'), /fora/);
@@ -73,11 +98,19 @@ test('candidato duplicado no manifesto é rejeitado', t => {
   const root = temporary(t);
   fs.writeFileSync(path.join(root, 'c.bin'), Buffer.alloc(8));
   const item = { label: 'A', samples: [['c.bin'], ['c.bin']] };
-  fs.writeFileSync(path.join(root, 'reference.json'), JSON.stringify({ schema: 1, kind: 'prepared_reference', candidates: [item, item] }));
+  fs.writeFileSync(
+    path.join(root, 'reference.json'),
+    JSON.stringify({ schema: 1, kind: 'prepared_reference', candidates: [item, item] }),
+  );
   assert.throws(() => ReferenceModel.load(path.join(root, 'reference.json')), /duplicado/);
 });
 test('rótulos especiais não alteram protótipos', () => {
-  const m = ReferenceModel.fromSamples(new Map([['__proto__', [[0], [1]]], ['constructor', [[0], [1]]]]));
+  const m = ReferenceModel.fromSamples(
+    new Map([
+      ['__proto__', [[0], [1]]],
+      ['constructor', [[0], [1]]],
+    ]),
+  );
   const r = m.predict(Cryptogram.fromTerms('D', [0, 1]));
   assert.equal(r.prediction, 'constructor');
   assert.equal(Object.hasOwn(r.scores, '__proto__'), true);

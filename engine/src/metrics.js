@@ -9,21 +9,26 @@ export function hammingDistance(a, b) {
   const x = normalizeCryptoterm(a) ^ normalizeCryptoterm(b);
   return popcount32(Number(x & 0xffffffffn)) + popcount32(Number(x >> 32n));
 }
-const unknownTerms = d => d instanceof Cryptogram ? d.terms : Array.from(d, normalizeCryptoterm);
+const unknownTerms = d => (d instanceof Cryptogram ? d.terms : Array.from(d, normalizeCryptoterm));
 
 export function edgeWeight(unknown, sampleTerms, allTerms, ungroupedTerms = []) {
   const sample = new Set(Array.from(sampleTerms, normalizeCryptoterm));
   if (!sample.size) throw new Error('tau deve conter ao menos um criptotermo');
   const excluded = new Set(Array.from(ungroupedTerms, normalizeCryptoterm));
-  const competitors = [...new Set(Array.from(allTerms, normalizeCryptoterm))]
-    .filter(t => !sample.has(t) && !excluded.has(t));
+  const competitors = [...new Set(Array.from(allTerms, normalizeCryptoterm))].filter(
+    t => !sample.has(t) && !excluded.has(t),
+  );
   let weight = 0;
   for (const d of unknownTerms(unknown)) {
-    let distD = 64, distT = 64, edge = 0;
+    let distD = 64,
+      distT = 64,
+      edge = 0;
     for (const t of sample) {
       const distance = hammingDistance(d, t);
-      if (distance < distD) { distD = distance; edge = 1; }
-      else if (distance === distD) edge++;
+      if (distance < distD) {
+        distD = distance;
+        edge = 1;
+      } else if (distance === distD) edge++;
     }
     for (const t of competitors) distT = Math.min(distT, hammingDistance(d, t));
     if (distD <= distT) weight += edge;
@@ -39,7 +44,8 @@ export function accurateSum(values) {
     let i = 0;
     for (let y of partials) {
       if (Math.abs(x) < Math.abs(y)) [x, y] = [y, x];
-      const hi = x + y, lo = y - (hi - x);
+      const hi = x + y,
+        lo = y - (hi - x);
       if (lo) partials[i++] = lo;
       x = hi;
     }
@@ -49,7 +55,10 @@ export function accurateSum(values) {
   return partials.reduceRight((a, b) => a + b, 0);
 }
 export class UndefinedIndexError extends Error {
-  constructor() { super('Índice indefinido: média dos pesos zero'); this.code = 'zero_mean'; }
+  constructor() {
+    super('Índice indefinido: média dos pesos zero');
+    this.code = 'zero_mean';
+  }
 }
 export function reliabilityIndexFromWeights(input) {
   const weights = [...input];
@@ -66,6 +75,8 @@ export function reliabilityIndexFromWeights(input) {
   return { weights, mean, sample_standard_deviation, value };
 }
 export function reliabilityIndex(unknown, samples, allTerms, ungroupedTerms = []) {
-  const d = unknownTerms(unknown), all = [...allTerms], excluded = [...ungroupedTerms];
+  const d = unknownTerms(unknown),
+    all = [...allTerms],
+    excluded = [...ungroupedTerms];
   return reliabilityIndexFromWeights(Array.from(samples, sample => edgeWeight(d, sample, all, excluded)));
 }

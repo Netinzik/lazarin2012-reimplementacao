@@ -9,17 +9,16 @@ import { createOutput, localFile, readCiphertext, writeJSON } from './io.js';
 
 export function referenceTermStats(model, referenceRecords) {
   const byLabel = new Map(model.labels.map(label => [label, { files: 0, occurrences: 0, distinct: 0, samples: [] }]));
-  const samples = model.samples.map((sample, index) => {
-    const algorithm = model.sampleLabels[index], group = byLabel.get(algorithm);
-    const value = { sample_index: group.samples.length, files: 0, occurrences: 0, distinct: sample.size };
-    group.samples.push(value);
-    return value;
+  model.samples.forEach((sample, index) => {
+    const group = byLabel.get(model.sampleLabels[index]);
+    group.samples.push({ sample_index: group.samples.length, files: 0, occurrences: 0, distinct: sample.size });
   });
   for (const owners of model.memberships.values()) {
     if (owners.length === 1) byLabel.get(model.sampleLabels[owners[0]]).distinct++;
     else for (const label of new Set(owners.map(index => model.sampleLabels[index]))) byLabel.get(label).distinct++;
   }
-  let files = 0, occurrences = 0;
+  let files = 0,
+    occurrences = 0;
   for (const record of referenceRecords) {
     const group = byLabel.get(record.algorithm);
     if (!group) throw new Error('Registro de referência contém algoritmo ausente do modelo');
@@ -28,9 +27,12 @@ export function referenceTermStats(model, referenceRecords) {
     const sample = group.samples[record.sample_index];
     if (!sample || !Number.isSafeInteger(record.sample_index) || record.sample_index < 0)
       throw new Error('Registro de referência possui amostra inválida');
-    files++; occurrences += record.bytes / 8;
-    group.files++; group.occurrences += record.bytes / 8;
-    sample.files++; sample.occurrences += record.bytes / 8;
+    files++;
+    occurrences += record.bytes / 8;
+    group.files++;
+    group.occurrences += record.bytes / 8;
+    sample.files++;
+    sample.occurrences += record.bytes / 8;
   }
   if (!Number.isSafeInteger(occurrences)) throw new Error('Contagem excede a precisão inteira');
   return { files, occurrences, distinct: model.terms.length, per_algorithm: Object.fromEntries(byLabel) };
@@ -48,7 +50,8 @@ export function benchmarkDataset(datasetDir, output, { perAlgorithm = 1, onProgr
   const referenceRecords = manifest.records.filter(record => record.split === 'reference');
   const fullTests = manifest.records.filter(record => record.split === 'test');
   const reference_stats = referenceTermStats(model, referenceRecords);
-  const selected = [], counts = new Map(manifest.algorithms.map(label => [label, 0]));
+  const selected = [],
+    counts = new Map(manifest.algorithms.map(label => [label, 0]));
   for (const record of fullTests) {
     if (counts.get(record.algorithm) < perAlgorithm) {
       selected.push(record);
@@ -57,13 +60,18 @@ export function benchmarkDataset(datasetDir, output, { perAlgorithm = 1, onProgr
   }
   if ([...counts.values()].some(count => count !== perAlgorithm))
     throw new Error('Conjunto não possui casos suficientes por algoritmo para este benchmark');
-  const estimated_full_hamming_comparisons = fullTests.reduce((n, record) => n + record.bytes / 8, 0) * model.terms.length;
+  const estimated_full_hamming_comparisons =
+    fullTests.reduce((n, record) => n + record.bytes / 8, 0) * model.terms.length;
   if (!Number.isSafeInteger(estimated_full_hamming_comparisons)) throw new Error('Estimativa excede precisão inteira');
   const setup_ms = performance.now() - started;
   const cases = [];
-  let measured_predict_ms = 0, measuredComparisons = 0;
+  let measured_predict_ms = 0,
+    measuredComparisons = 0;
   for (const record of selected) {
-    const unknown = Cryptogram.fromBytes('benchmark-' + cases.length, readCiphertext(localFile(datasetDir, record.path)));
+    const unknown = Cryptogram.fromBytes(
+      'benchmark-' + cases.length,
+      readCiphertext(localFile(datasetDir, record.path)),
+    );
     const before = performance.now();
     const result = model.predict(unknown, 3, null, 0.1, 'chapter3');
     const case_ms = performance.now() - before;
@@ -72,25 +80,44 @@ export function benchmarkDataset(datasetDir, output, { perAlgorithm = 1, onProgr
     cases.push({ id: record.id, case_ms, result });
     onProgress?.({ completed: cases.length, total: selected.length, case_ms });
   }
-  const estimated_full_predict_ms = measured_predict_ms * estimated_full_hamming_comparisons / measuredComparisons;
+  const estimated_full_predict_ms = (measured_predict_ms * estimated_full_hamming_comparisons) / measuredComparisons;
   const result = {
-    schema: 1, kind: 'limited_cost_benchmark', version: '0.6.0',
+    schema: 1,
+    kind: 'limited_cost_benchmark',
+    version: '0.6.0',
     dataset: {
       manifest_sha256: sha256(fs.readFileSync(path.join(datasetDir, 'manifest.json'))),
-      source_sha256: manifest.corpus.raw_sha256, text_bytes: manifest.config.textBytes, seed: manifest.config.seed
+      source_sha256: manifest.corpus.raw_sha256,
+      text_bytes: manifest.config.textBytes,
+      seed: manifest.config.seed,
     },
     configuration: {
-      candidates: manifest.algorithms, per_algorithm: perAlgorithm, measured_files: selected.length,
-      full_test_files: fullTests.length, decision_type: 3, profile: 'chapter3', alpha: 0.1,
-      warmup_files: 0, structural_pipeline_measured: false
+      candidates: manifest.algorithms,
+      per_algorithm: perAlgorithm,
+      measured_files: selected.length,
+      full_test_files: fullTests.length,
+      decision_type: 3,
+      profile: 'chapter3',
+      alpha: 0.1,
+      warmup_files: 0,
+      structural_pipeline_measured: false,
     },
-    reference_stats, cases, setup_ms, measured_predict_ms, estimated_full_hamming_comparisons,
-    estimated_full_predict_ms, estimated_full_total_ms: setup_ms + estimated_full_predict_ms,
+    reference_stats,
+    cases,
+    setup_ms,
+    measured_predict_ms,
+    estimated_full_hamming_comparisons,
+    estimated_full_predict_ms,
+    estimated_full_total_ms: setup_ms + estimated_full_predict_ms,
     execution: {
-      node: process.version, openssl: process.versions.openssl,
-      platform: process.platform, architecture: process.arch, max_rss_bytes: process.resourceUsage().maxRSS * 1024
+      node: process.version,
+      openssl: process.versions.openssl,
+      platform: process.platform,
+      architecture: process.arch,
+      max_rss_bytes: process.resourceUsage().maxRSS * 1024,
     },
-    warning: 'Estimativa de custo do controle preparado, não medida de eficácia. Extrapola os casos escolhidos sem warm-up; não mede investigação/coloração e não garante tempo total da avaliação completa. Não demonstra fidelidade por duração.'
+    warning:
+      'Estimativa de custo do controle preparado, não medida de eficácia. Extrapola os casos escolhidos sem warm-up; não mede investigação/coloração e não garante tempo total da avaliação completa. Não demonstra fidelidade por duração.',
   };
   createOutput(output);
   writeJSON(path.join(output, 'benchmark.json'), result);

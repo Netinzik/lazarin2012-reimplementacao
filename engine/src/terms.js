@@ -33,7 +33,11 @@ export class Cryptogram {
     this.terms = Object.freeze(Array.from(terms, normalizeCryptoterm));
     Object.freeze(this);
   }
-  static fromTerms(identifier, terms) { return new Cryptogram(identifier, terms); }
-  static fromBytes(identifier, data) { return new Cryptogram(identifier, splitBytes(data)); }
+  static fromTerms(identifier, terms) {
+    return new Cryptogram(identifier, terms);
+  }
+  static fromBytes(identifier, data) {
+    return new Cryptogram(identifier, splitBytes(data));
+  }
 }
-export const sortTerms = (terms) => [...terms].sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
+export const sortTerms = terms => [...terms].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));

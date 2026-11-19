@@ -1,17 +1,27 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-export function readJSON(file) { return JSON.parse(fs.readFileSync(file, 'utf8')); }
-export function jsonText(value) {
-  return JSON.stringify(value, (_, v) => {
-    if (typeof v === 'bigint') return v.toString();
-    if (v instanceof Set) return [...v];
-    if (v instanceof Map) return Object.fromEntries(v);
-    if (typeof v === 'number' && !Number.isFinite(v)) throw new Error('JSON contém número não finito');
-    return v;
-  }, 2) + '\n';
+export function readJSON(file) {
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
-export function writeJSON(file, data) { fs.writeFileSync(file, jsonText(data), { flag: 'wx' }); }
+export function jsonText(value) {
+  return (
+    JSON.stringify(
+      value,
+      (_, v) => {
+        if (typeof v === 'bigint') return v.toString();
+        if (v instanceof Set) return [...v];
+        if (v instanceof Map) return Object.fromEntries(v);
+        if (typeof v === 'number' && !Number.isFinite(v)) throw new Error('JSON contém número não finito');
+        return v;
+      },
+      2,
+    ) + '\n'
+  );
+}
+export function writeJSON(file, data) {
+  fs.writeFileSync(file, jsonText(data), { flag: 'wx' });
+}
 export function createOutput(directory) {
   if (fs.existsSync(directory)) throw new Error('Diretório já existe; use outro nome: ' + directory);
   fs.mkdirSync(path.dirname(path.resolve(directory)), { recursive: true });

@@ -12,20 +12,34 @@ export const nome = 'RC5-32/12/16 (Rivest, 1994)';
 export const blocoBytes = 8;
 export const chaveBytes = 16;
 
-const RODADAS = 12, P32 = 0xb7e15163, Q32 = 0x9e3779b9;
-const rotl = (x, n) => { n &= 31; return ((x << n) | (x >>> (32 - n))) >>> 0; };
-const rotr = (x, n) => { n &= 31; return ((x >>> n) | (x << (32 - n))) >>> 0; };
+const RODADAS = 12,
+  P32 = 0xb7e15163,
+  Q32 = 0x9e3779b9;
+const rotl = (x, n) => {
+  n &= 31;
+  return ((x << n) | (x >>> (32 - n))) >>> 0;
+};
+const rotr = (x, n) => {
+  n &= 31;
+  return ((x >>> n) | (x << (32 - n))) >>> 0;
+};
 
-let ultimaChave = null, ultimoS = null;
+let ultimaChave = null,
+  ultimoS = null;
 
 function expandir(chave) {
   if (ultimaChave && ultimaChave.length === chave.length && ultimaChave.every((b, i) => b === chave[i])) return ultimoS;
-  const c = Math.max(1, Math.ceil(chave.length / 4)), L = new Array(c).fill(0);
+  const c = Math.max(1, Math.ceil(chave.length / 4)),
+    L = new Array(c).fill(0);
   for (let i = chave.length - 1; i >= 0; i--) L[Math.floor(i / 4)] = ((L[Math.floor(i / 4)] << 8) + chave[i]) >>> 0;
-  const t = 2 * RODADAS + 2, S = new Array(t);
+  const t = 2 * RODADAS + 2,
+    S = new Array(t);
   S[0] = P32;
   for (let i = 1; i < t; i++) S[i] = (S[i - 1] + Q32) >>> 0;
-  let A = 0, B = 0, i = 0, j = 0;
+  let A = 0,
+    B = 0,
+    i = 0,
+    j = 0;
   for (let k = 0; k < 3 * Math.max(t, c); k++) {
     A = S[i] = rotl((S[i] + A + B) >>> 0, 3);
     B = L[j] = rotl((L[j] + A + B) >>> 0, (A + B) >>> 0);
@@ -43,7 +57,8 @@ function palavras(bytes) {
 }
 
 function bloco(A, B) {
-  const saida = new Uint8Array(8), view = new DataView(saida.buffer);
+  const saida = new Uint8Array(8),
+    view = new DataView(saida.buffer);
   view.setUint32(0, A, true);
   view.setUint32(4, B, true);
   return saida;

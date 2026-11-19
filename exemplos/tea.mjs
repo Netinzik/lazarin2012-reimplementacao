@@ -18,14 +18,16 @@ function palavras(bytes, n) {
 }
 
 function bloco(v0, v1) {
-  const saida = new Uint8Array(8), view = new DataView(saida.buffer);
+  const saida = new Uint8Array(8),
+    view = new DataView(saida.buffer);
   view.setUint32(0, v0);
   view.setUint32(4, v1);
   return saida;
 }
 
 export function cifrarBloco(entrada, chave) {
-  let [v0, v1] = palavras(entrada, 2), soma = 0;
+  let [v0, v1] = palavras(entrada, 2),
+    soma = 0;
   const [k0, k1, k2, k3] = palavras(chave, 4);
   for (let i = 0; i < 32; i++) {
     soma = (soma + DELTA) >>> 0;
@@ -36,7 +38,8 @@ export function cifrarBloco(entrada, chave) {
 }
 
 export function decifrarBloco(entrada, chave) {
-  let [v0, v1] = palavras(entrada, 2), soma = (DELTA * 32) >>> 0;
+  let [v0, v1] = palavras(entrada, 2),
+    soma = (DELTA * 32) >>> 0;
   const [k0, k1, k2, k3] = palavras(chave, 4);
   for (let i = 0; i < 32; i++) {
     v1 = (v1 - ((((v0 << 4) + k2) ^ (v0 + soma) ^ ((v0 >>> 5) + k3)) | 0)) >>> 0;

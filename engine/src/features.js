@@ -1,9 +1,10 @@
 export function colorGroup(investigation, group) {
   const adjacency = new Map(group.map(id => [id, new Set()]));
-  for (const e of investigation.intersections) if (adjacency.has(e.left) && adjacency.has(e.right)) {
-    adjacency.get(e.left).add(e.right);
-    adjacency.get(e.right).add(e.left);
-  }
+  for (const e of investigation.intersections)
+    if (adjacency.has(e.left) && adjacency.has(e.right)) {
+      adjacency.get(e.left).add(e.right);
+      adjacency.get(e.right).add(e.left);
+    }
   const colors = new Map();
   for (const vertex of group) {
     const unavailable = new Set([...adjacency.get(vertex)].map(v => colors.get(v)));
@@ -24,12 +25,15 @@ export function extractFeatures(investigation) {
       return { color, cryptogram_ids, terms };
     });
     return {
-      group_number: index + 1, cryptogram_ids: group, color_assignments, samples,
+      group_number: index + 1,
+      cryptogram_ids: group,
+      color_assignments,
+      samples,
       colorOf(id) {
         const item = color_assignments.find(([v]) => v === id);
         if (!item) throw new Error('Vértice ausente');
         return item[1];
-      }
+      },
     };
   });
 }

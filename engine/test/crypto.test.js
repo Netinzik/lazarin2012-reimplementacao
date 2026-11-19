@@ -8,14 +8,20 @@ const vectors = [
   ['RC2', '88bca90e90875a7f0f79c384627bafb2', '0000000000000000', '2269552ab0f85ca6'],
   ['CAST5', '0123456712345678234567893456789a', '0123456789abcdef', '238b4fe5847e44b2'],
 ];
-for (const [algorithm, key, clear, expected] of vectors) test(algorithm + ': vetor externo de chave 128 bits', () => {
-  assert.equal(encryptCBC(algorithm, Buffer.from(clear, 'hex'), Buffer.from(key, 'hex'), Buffer.alloc(8)).toString('hex'), expected);
-});
+for (const [algorithm, key, clear, expected] of vectors)
+  test(algorithm + ': vetor externo de chave 128 bits', () => {
+    assert.equal(
+      encryptCBC(algorithm, Buffer.from(clear, 'hex'), Buffer.from(key, 'hex'), Buffer.alloc(8)).toString('hex'),
+      expected,
+    );
+  });
 
 test('todos os backends têm chave 128, bloco e IV de 64 bits', () => {
   const info = checkCrypto();
   assert.deepEqual(info.algorithms, [...ALGORITHMS]);
-  assert.equal(info.key_bits, 128); assert.equal(info.block_bits, 64); assert.equal(info.rc2_effective_key_bits, 128);
+  assert.equal(info.key_bits, 128);
+  assert.equal(info.block_bits, 64);
+  assert.equal(info.rc2_effective_key_bits, 128);
 });
 
 test('CBC de dois blocos corresponde à aplicação independente do encadeamento', () => {
@@ -28,14 +34,17 @@ test('CBC de dois blocos corresponde à aplicação independente do encadeamento
     const second = encryptCBC(algorithm, clear.subarray(8), key, first);
     const encrypted = encryptCBC(algorithm, clear, key, iv);
     assert.deepEqual(encrypted, Buffer.concat([first, second]));
-    const decipher = createDecipheriv(ciphers[algorithm], key, iv); decipher.setAutoPadding(false);
+    const decipher = createDecipheriv(ciphers[algorithm], key, iv);
+    decipher.setAutoPadding(false);
     assert.deepEqual(Buffer.concat([decipher.update(encrypted), decipher.final()]), clear);
     assert.equal(encrypted.length, clear.length);
   }
 });
 
 test('rejeita cifras extras, entradas desalinhadas e chaves com tamanhos diferentes', () => {
-  const clear = Buffer.alloc(8), key = Buffer.alloc(16), iv = Buffer.alloc(8);
+  const clear = Buffer.alloc(8),
+    key = Buffer.alloc(16),
+    iv = Buffer.alloc(8);
   assert.throws(() => encryptCBC('DES', clear, key, iv), /não suportado/);
   for (const algorithm of ALGORITHMS) {
     for (const length of [0, 7, 8, 15, 17, 32])

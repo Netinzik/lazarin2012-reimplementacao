@@ -20,13 +20,15 @@ test('comparação estrutural mantém nomes delta e amostras vindas da coloraç�
   assert.deepEqual(r.delta_1.weights, m.reliabilityForGroup(Cryptogram.fromTerms('D', [0, 3, 15]), 1).weights);
 });
 test('configuração inválida não é escondida pela ausência de grupos', () => {
-  const m = LazarinModel.fit([]), d = Cryptogram.fromTerms('D', [0]);
+  const m = LazarinModel.fit([]),
+    d = Cryptogram.fromTerms('D', [0]);
   assert.throws(() => m.predict(d, { decisionType: 4 }));
   assert.throws(() => m.predict(d, { profile: 'outro' }));
   assert.throws(() => m.predict(d, { alpha: NaN }));
   assert.throws(() => m.predict(d, { profile: 'chapter5-experiment2' }));
 });
 test('assinatura posicional estrutural equivale às opções nomeadas', () => {
-  const m = LazarinModel.fit(figure()), d = Cryptogram.fromTerms('D', [0, 3, 15]);
-  assert.deepEqual(m.predict(d, 3, null, .1, 'chapter3'), m.predict(d, { decisionType: 3 }));
+  const m = LazarinModel.fit(figure()),
+    d = Cryptogram.fromTerms('D', [0, 3, 15]);
+  assert.deepEqual(m.predict(d, 3, null, 0.1, 'chapter3'), m.predict(d, { decisionType: 3 }));
 });
